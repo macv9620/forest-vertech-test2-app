@@ -1,4 +1,4 @@
 #Determinar la imagen que usará para ejecutar la aplicación java
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk
 COPY build/libs/forest-0.0.1-SNAPSHOT.jar forest-app.jar
 ENTRYPOINT ["java", "-jar", "forest-app.jar"]
