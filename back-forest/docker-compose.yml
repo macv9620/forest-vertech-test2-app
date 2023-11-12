@@ -10,9 +10,9 @@ services:
       ports:
         - 8080:8080
       environment:
-        - PASSWORD_DATABASE=jdbc:postgresql://java_forest_db:5432/postgres
-        - USERNAME_DATABASE=postgres
-        - URL_DATABASE=postgres
+        - DATABASE_PASSWORD=postgres
+        - DATABASE_USERNAME=postgres
+        - DATABASE_URL=jdbc:postgresql://java_forest_db:5432/postgres
       depends_on:
         - java_forest_db
     java_forest_db:
