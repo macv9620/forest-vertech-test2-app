@@ -1,0 +1,84 @@
+/* BarChart.css */
+
+.chart {
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  div #layout {
+    text-align: center;
+
+  }
+  
+  div #container {
+    width: 1100px;
+    height: 500px;
+    margin: auto;
+    background-color: #2F4A6D;
+  }
+  
+  #chart-svg {
+    width:1100px;
+    height: 100%;
+  }
+  
+  .bar {
+    fill: #80cbc4;
+  }
+  
+  text {
+    font-size: 12px;
+    fill: #a6a4a4;
+  }
+  
+  .bar-label{
+    fill: white;
+  }
+  path {
+    stroke: gray;
+  }
+  
+  line {
+    stroke: gray;
+  }
+  
+  line#limit {
+    stroke: #FED966;
+    stroke-width: 3;
+    stroke-dasharray: 3 6;
+  }
+  
+  .gridpath {
+    stroke-width: 0;
+  }
+  
+  .grid.tick line {
+    stroke: #9FAAAE;
+    stroke-opacity: 0.3;
+  }
+  
+  .prueba{
+    background-color: red;
+  }
+  text .divergence {
+    font-size: 12px;
+    fill: #2F4A6D;
+  }
+  
+  text.value {
+    font-size: 12px;
+  }
+  
+  text.title {
+    font-size: 25px;
+    font-weight: 400;
+    fill: white;
+  }
+  
+  text.label {
+    font-size: 12px;
+    font-weight: 400;
+  }
+  
+  text .source {
+    font-size: 10px;
+  }
