@@ -1,5 +1,6 @@
 import BarChart from '../Components/Chart/BarChart'
 import { FilterBar } from '../Components/FilterBar/FilterBar'
+import { SaveModal } from '../Components/Modals/SaveModal'
 import { useAppContext } from '../Context/AppContextProvider'
 
 const DashBoard = () => {
@@ -50,6 +51,7 @@ const DashBoard = () => {
             <p className='text-xs p-1'>Query summary / {querySummary}</p>
           </div>
           <BarChart />
+          <SaveModal />
         </div>
       </div>
     </div>
