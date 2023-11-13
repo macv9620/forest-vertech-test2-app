@@ -77,7 +77,7 @@ public class UserController {
         try {
             boolean userExists = userService.userExists(userId);
             if (userExists){
-                message = "User exists";
+                message = "Authorized";
                 httpStatus = HttpStatus.OK;
             } else {
                 message = "Unauthorized";
