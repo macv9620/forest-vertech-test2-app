@@ -18,14 +18,13 @@ const SelectTable = () => {
   return (
     <div className='w-20'>
       <Select
-        variant='static'
         label='Select Table*'
         placeholder='Number of trees'
         className='bg-white rounded'
         value={selectedValue}
         onChange={handleSelectChange}
       >
-        <Option value='plot_tree'>Number of trees</Option>
+        <Option value='plot_tree' className='px-4'>Number of trees</Option>
         <Option disabled>Tree Map</Option>
       </Select>
     </div>

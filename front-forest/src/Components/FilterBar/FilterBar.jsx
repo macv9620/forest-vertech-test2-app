@@ -1,4 +1,3 @@
-import { Spinner } from '@material-tailwind/react'
 import { SimpleRegistrationForm } from './FromToYear'
 import { MultiCheckSpecie } from './MultiCheckSpecie'
 import { MultiCheckState } from './MulticheckState'
@@ -13,7 +12,7 @@ const FilterBar = () => {
         <MultiCheckState />
         <MultiCheckSpecie />
       </div>
-      <div>
+      <div className='w-auto flex justify-around'>
         <SimpleRegistrationForm />
       </div>
     </>

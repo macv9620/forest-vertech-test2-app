@@ -9,3 +9,9 @@
     z-index: 11;
     top: 0;
 }
+
+.save-form-container{
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+}

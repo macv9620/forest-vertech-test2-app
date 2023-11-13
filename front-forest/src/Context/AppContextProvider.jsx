@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const AppContext = createContext()
 
@@ -9,7 +9,8 @@ const ContextAppProvider = ({ children }) => {
   const [userErrorLog, setUserErrorLog] = useState(null)
   const [toYear, setToYear] = useState('')
   const [fromYear, setFromYear] = useState('')
-
+  const [showSaveForm, setShowSaveForm] = useState(false)
+  const [querySummary, setQuerySummary] = useState('')
 
   const [userQuery, setUserQuery] = useState({
     queryType: 'tree_quantity',
@@ -60,6 +61,39 @@ const ContextAppProvider = ({ children }) => {
     }
   ])
 
+  const querySummaryBuilder = (queryObject) => {
+    const filtersList = []
+
+    if (queryObject.table === null) {
+      filtersList.push('Table: no selected')
+    } else if (queryObject.table === 'plot_tree') {
+      filtersList.push('Table: Number of trees')
+    }
+
+    if (queryObject.filters.stateCode === null) {
+      filtersList.push('States: all')
+    } else {
+      filtersList.push('States: ' + queryObject.filters.stateCode.join(', '))
+    }
+
+    if (queryObject.filters.specieCode === null) {
+      filtersList.push('Species: all')
+    } else {
+      filtersList.push('Species: ' + queryObject.filters.specieCode.join(', '))
+    }
+
+    if (fromYear === '' && toYear === '') {
+      filtersList.push('Years: all')
+    } else {
+      filtersList.push('Years: from: ' + fromYear + ' to: ' + toYear)
+    }
+
+    return filtersList.join(' - ')
+  }
+
+  useEffect(() => {
+    setQuerySummary(querySummaryBuilder(userQuery))
+  }, [userQuery, toYear, fromYear])
 
   const valuesObject = {
     userQuery,
@@ -75,7 +109,12 @@ const ContextAppProvider = ({ children }) => {
     toYear,
     setToYear,
     fromYear,
-    setFromYear
+    setFromYear,
+    setShowSaveForm,
+    showSaveForm,
+    querySummary,
+    setQuerySummary,
+    querySummaryBuilder
   }
 
   return (
