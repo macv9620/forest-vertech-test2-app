@@ -1,5 +1,6 @@
 package com.vertech.forest.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,10 +19,12 @@ public class QueryCommentEntity {
     @Column(name = "query_id")
     private Integer queryId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "nickName", referencedColumnName = "nickName", insertable = false, updatable = false)
     private UserEntity user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "query_id", referencedColumnName = "query_id", insertable = false, updatable = false)
     private QueryEntity query;
