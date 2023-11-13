@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import {
   Input,
   Typography
@@ -13,27 +12,61 @@ const SimpleRegistrationForm = () => {
     fromYear, setFromYear, toYear, setToYear
   } = useAppContext()
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
-    setUserErrorLog(null)
-    e.preventDefault()
-
+  const checkFormData = () => {
     if (userQuery.table === null) {
       setUserErrorLog('Please select a Table')
-      return
+      return true
     }
 
     if (Number(fromYear) === 0 || Number(toYear) === 0) {
       setUserErrorLog('From/To year cannot be 0, negative or string')
-      return
+      return true
     } else if (Number(fromYear) > Number(toYear)) {
       setUserErrorLog('From year must be < To year')
-      return
+      return true
     } else if (Number(fromYear) < 1990 || Number(fromYear) > 2050) {
       setUserErrorLog('Please type years between 1990 and 2024')
-      return
+      return true
     } else if (Number(toYear) < 1950 || Number(toYear) > 2024) {
       setUserErrorLog('Please type years between 1950 and 2024')
+      return true
+    }
+
+    return false
+  }
+
+  const executeQuery = () => {
+    setShowLoadingSpinner(true)
+    getByQueryData({
+      ...userQuery,
+      filters: {
+        ...userQuery.filters,
+        inventoryYear: [fromYear, toYear]
+      }
+    }).then((res) => {
+      console.log(res)
+      console.log(res.data.data.length)
+      if (res.data.data.length === 0) {
+        setQueryResultData(null)
+        setUserErrorLog('Your query returned no results, update your filters and run again')
+      } else {
+        setQueryResultData(res.data.data)
+      }
+      setShowLoadingSpinner(false)
+    }).catch((e) => {
+      setShowLoadingSpinner(false)
+      if (e.code === 'ERR_NETWORK') {
+        setUserErrorLog('Opss! Could not connect to the server')
+        setQueryResultData(null)
+      }
+    })
+  }
+
+  const handleSubmit = (e) => {
+    setUserErrorLog(null)
+    e.preventDefault()
+
+    if (checkFormData()) {
       return
     }
 
@@ -52,32 +85,6 @@ const SimpleRegistrationForm = () => {
       }
     })
 
-    const executeQuery = () => {
-      setShowLoadingSpinner(true)
-      getByQueryData({
-        ...userQuery,
-        filters: {
-          ...userQuery.filters,
-          inventoryYear: [fromYear, toYear]
-        }
-      }).then((res) => {
-        console.log(res)
-        console.log(res.data.data.length)
-        if (res.data.data.length === 0) {
-          setQueryResultData(null)
-          setUserErrorLog('Your query returned no results, update your filters and run again')
-        } else {
-          setQueryResultData(res.data.data)
-        }
-        setShowLoadingSpinner(false)
-      }).catch((e) => {
-        setShowLoadingSpinner(false)
-        if (e.code === 'ERR_NETWORK') {
-          setUserErrorLog('Opss! Could not connect to the server')
-          setQueryResultData(null)
-        }
-      })
-    }
     executeQuery()
   }
 

@@ -99,7 +99,7 @@ const BarChart = () => {
         .attr('x', width / 2 + margin)
         .attr('y', 40)
         .attr('text-anchor', 'middle')
-        .text('Quantity inventory of trees')
+        .text('Number of trees')
 
       svg.append('text')
         .attr('class', 'source')
