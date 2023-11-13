@@ -2,7 +2,9 @@ package com.vertech.forest.persistence.entity;
 
 import autovalue.shaded.org.jetbrains.annotations.NotNull;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,6 +26,11 @@ public class QueryEntity {
 
     @Column(name = "query_description")
     private String queryDescription;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt;
 
     @ManyToOne
     @JoinColumn(name = "nickName", referencedColumnName = "nickName", insertable = false, updatable = false)
@@ -86,5 +93,13 @@ public class QueryEntity {
 
     public void setComments(List<QueryCommentEntity> comments) {
         this.comments = comments;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
