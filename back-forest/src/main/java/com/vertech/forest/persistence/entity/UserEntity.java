@@ -1,5 +1,6 @@
 package com.vertech.forest.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,9 +12,11 @@ public class UserEntity {
     private String nickName;
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<QueryEntity> queries;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<QueryCommentEntity> queriesComments;
 
@@ -31,5 +34,21 @@ public class UserEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<QueryEntity> getQueries() {
+        return queries;
+    }
+
+    public void setQueries(List<QueryEntity> queries) {
+        this.queries = queries;
+    }
+
+    public List<QueryCommentEntity> getQueriesComments() {
+        return queriesComments;
+    }
+
+    public void setQueriesComments(List<QueryCommentEntity> queriesComments) {
+        this.queriesComments = queriesComments;
     }
 }

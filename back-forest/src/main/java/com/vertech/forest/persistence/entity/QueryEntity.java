@@ -30,7 +30,7 @@ public class QueryEntity {
     private UserEntity user;
 
     @OneToMany(mappedBy = "query")
-    private List<QueryCommentEntity> queries;
+    private List<QueryCommentEntity> comments;
 
     public Integer getQueryId() {
         return queryId;
@@ -70,5 +70,21 @@ public class QueryEntity {
 
     public void setQueryDescription(String queryDescription) {
         this.queryDescription = queryDescription;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public List<QueryCommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<QueryCommentEntity> comments) {
+        this.comments = comments;
     }
 }

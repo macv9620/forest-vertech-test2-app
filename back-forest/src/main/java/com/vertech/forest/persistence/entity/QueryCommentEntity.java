@@ -57,4 +57,20 @@ public class QueryCommentEntity {
     public void setQueryId(Integer queryId) {
         this.queryId = queryId;
     }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public QueryEntity getQuery() {
+        return query;
+    }
+
+    public void setQuery(QueryEntity query) {
+        this.query = query;
+    }
 }

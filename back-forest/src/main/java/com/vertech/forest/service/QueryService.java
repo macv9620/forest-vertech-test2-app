@@ -1,19 +1,31 @@
 package com.vertech.forest.service;
 
-import com.vertech.forest.bigqueryConfig.BigQueryRequest;
-import com.vertech.forest.bigqueryConfig.QueryBuilder;
-import com.vertech.forest.web.controller.dto.queries.TreeCounterResult;
-import com.vertech.forest.web.controller.dto.queries.UserQueryInfo;
+import com.vertech.forest.persistence.entity.QueryEntity;
+import com.vertech.forest.persistence.repository.QueryRepository;
+import com.vertech.forest.persistence.repository.UserRepository;
+import com.vertech.forest.web.controller.exceptions.CheckDataCustomException;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
 public class QueryService {
-    public List<TreeCounterResult> executeQuery(UserQueryInfo userQueryInfo) throws IOException, InterruptedException {
-        String query = QueryBuilder.buildQuery(userQueryInfo);
-        System.out.println(query);
-        return BigQueryRequest.executeRequest(query);
+    private final QueryRepository queryRepository;
+    private final UserRepository userRepository;
+
+    public QueryService(QueryRepository queryRepository, UserRepository userRepository) {
+        this.queryRepository = queryRepository;
+        this.userRepository = userRepository;
+    }
+
+    public QueryEntity saveQuery(QueryEntity queryEntity) throws CheckDataCustomException {
+        if (!userRepository.existsById(queryEntity.getNickName())){
+            throw new CheckDataCustomException("Invalid nickName, user doesn't exist");
+        }
+        return queryRepository.save(queryEntity);
+    }
+
+    public List<QueryEntity> getAll(){
+        return queryRepository.findAll();
     }
 }
