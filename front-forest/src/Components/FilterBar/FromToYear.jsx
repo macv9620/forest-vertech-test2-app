@@ -4,8 +4,7 @@ import {
   Button
 } from '@material-tailwind/react'
 import { useAppContext } from '../../Context/AppContextProvider'
-import { getByQueryData } from '../../Service/getByQueryData'
-import { useState } from 'react'
+import { getByQueryData } from '../../Service/BigQuery/getByQueryData'
 import { SaveModal } from '../Modals/SaveModal'
 
 const SimpleRegistrationForm = () => {
@@ -39,8 +38,16 @@ const SimpleRegistrationForm = () => {
   }
 
   const checkDataAndShowModal = () => {
+    setUserErrorLog(null)
     if (isDataOk()) {
       setShowSaveForm(true)
+      setUserQuery((prevUserQuery) => ({
+        ...prevUserQuery,
+        filters: {
+          ...prevUserQuery.filters,
+          inventoryYear: [fromYear, toYear]
+        }
+      }))
     }
   }
 
@@ -122,7 +129,7 @@ const SimpleRegistrationForm = () => {
       </form>
       <div>
         <Button className='w-30' onClick={checkDataAndShowModal}>
-          Save query
+          Save Query
         </Button>
       </div>
     </div>
