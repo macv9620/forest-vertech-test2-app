@@ -17,11 +17,12 @@ import { useEffect, useState } from 'react'
 import { getSavedQueries } from '../Service/SaveQuery/getSavedQueries'
 import { useAppContext } from '../Context/AppContextProvider'
 import { Link } from 'react-router-dom'
+import './SavedQueries.css'
 
 const TABLE_HEAD = ['User', 'Query Name / Description', 'Comments', 'Date', 'Edit']
 
 const SavedQueries = () => {
-  const [userLog, setUserLog] = useState()
+  const [userLog, setUserLog] = useState(null)
   const { setShowLoadingSpinner } = useAppContext()
   const [savedQueriesResult, setSavedQueriesResult] = useState()
   useEffect(() => {
@@ -72,7 +73,7 @@ const SavedQueries = () => {
         </div>
 
       </CardHeader>
-      <CardBody className='px-0'>
+      <CardBody className='px-0 scroll-container h-full'>
         <table className='w-full min-w-max table-auto text-left'>
           <thead>
             <tr>
@@ -92,7 +93,6 @@ const SavedQueries = () => {
               ))}
             </tr>
           </thead>
-
           <tbody>
             {savedQueriesResult?.map(
               ({ user, nickName, queryName, queryDescription, createdAt }, index) => {
@@ -100,7 +100,7 @@ const SavedQueries = () => {
                 const classes = isLast
                   ? 'p-4'
                   : 'p-4 border-b border-blue-gray-50'
-
+                const date = (new Date(createdAt)).toString().slice(0, 21)
                 return (
                   <tr key={index}>
                     <td className={classes}>
@@ -162,7 +162,7 @@ const SavedQueries = () => {
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {createdAt}
+                        {date}
                       </Typography>
                     </td>
                     <td className={classes}>
@@ -176,12 +176,16 @@ const SavedQueries = () => {
                 )
               }
             )}
+
           </tbody>
         </table>
       </CardBody>
-      <div className='h-full flex justify-center items-center'>
-        <p className='text-red-300 text-xs p-1 font-bold'>{userLog}</p>
-      </div>
+      {userLog && (
+        <div className='h-full flex justify-center items-center'>
+          <p className='text-red-300 text-xs p-1 font-bold'>{userLog}</p>
+        </div>
+      )}
+
       <CardFooter className='flex items-center justify-between border-t border-blue-gray-50 p-4'>
         <Typography variant='small' color='blue-gray' className='font-normal'>
           Ver+ Tech
