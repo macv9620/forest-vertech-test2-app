@@ -6,6 +6,7 @@ import {
 import { useAppContext } from '../../Context/AppContextProvider'
 import { getByQueryData } from '../../Service/BigQuery/getByQueryData'
 import { SaveModal } from '../Modals/SaveModal'
+import { Link } from 'react-router-dom'
 
 const SimpleRegistrationForm = () => {
   // State to store input values
@@ -29,8 +30,8 @@ const SimpleRegistrationForm = () => {
     } else if (Number(fromYear) < 1990 || Number(fromYear) > 2050) {
       setUserErrorLog('Please type years between 1990 and 2024')
       return false
-    } else if (Number(toYear) < 1950 || Number(toYear) > 2024) {
-      setUserErrorLog('Please type years between 1950 and 2024')
+    } else if (Number(toYear) < 1950 || Number(toYear) > 2019) {
+      setUserErrorLog('Please type years between 1950 and 2019')
       return false
     }
 
@@ -131,6 +132,13 @@ const SimpleRegistrationForm = () => {
         <Button className='w-30' onClick={checkDataAndShowModal}>
           Save Query
         </Button>
+      </div>
+      <div>
+        <Link to='/savedQueries'>
+          <Button className='w-30'>
+            GO TO SAVED QUERIES
+          </Button>
+        </Link>
       </div>
     </div>
   )
