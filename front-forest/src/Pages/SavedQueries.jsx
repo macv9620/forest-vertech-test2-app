@@ -144,12 +144,16 @@ const SavedQueries = () => {
                     </td>
                     <td className={classes}>
                       <div className='w-max'>
-                        <Chip
-                          variant='ghost'
-                          size='sm'
-                          value='Comments'
-                          color='green'
-                        />
+                        <Tooltip className='text-center' content='See comments'>
+                          <Chip
+                            className='cursor-pointer'
+                            variant='ghost'
+                            size='sm'
+                            value='Comments'
+                            color='green'
+                          />
+                        </Tooltip>
+
                       </div>
                     </td>
                     <td className={classes}>
