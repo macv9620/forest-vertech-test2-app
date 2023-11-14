@@ -10,6 +10,7 @@ const ContextAppProvider = ({ children }) => {
   const [toYear, setToYear] = useState('')
   const [fromYear, setFromYear] = useState('')
   const [showSaveForm, setShowSaveForm] = useState(false)
+  const [showSendComment, setShowSendComment] = useState(false)
   const [querySummary, setQuerySummary] = useState('')
 
   const [userQuery, setUserQuery] = useState({
@@ -114,7 +115,9 @@ const ContextAppProvider = ({ children }) => {
     showSaveForm,
     querySummary,
     setQuerySummary,
-    querySummaryBuilder
+    querySummaryBuilder,
+    showSendComment,
+    setShowSendComment
   }
 
   return (
