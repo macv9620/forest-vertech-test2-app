@@ -2,6 +2,9 @@ package com.vertech.forest.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "query_comment")
@@ -19,7 +22,12 @@ public class QueryCommentEntity {
     @Column(name = "query_id")
     private Integer queryId;
 
-    @JsonIgnore
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt;
+
+
     @ManyToOne
     @JoinColumn(name = "nickName", referencedColumnName = "nickName", insertable = false, updatable = false)
     private UserEntity user;
@@ -75,5 +83,13 @@ public class QueryCommentEntity {
 
     public void setQuery(QueryEntity query) {
         this.query = query;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
