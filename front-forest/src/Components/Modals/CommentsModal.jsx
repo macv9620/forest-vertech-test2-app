@@ -6,8 +6,8 @@ import { useAuthContext } from '../../Context/AuthContextProvider'
 
 const CommentsModal = () => {
   const TABLE_HEAD = ['Comment', 'Name', 'NickName', 'Date']
-  const { setShowSendComment, infoToShowInCommentModal } = useAppContext()
-  const {userLogged} = useAuthContext()
+  const { setShowSendComment, infoToShowInCommentModal, setShowLoadingSpinner, setSyncSavedQueries, syncSavedQueries } = useAppContext()
+  const { userLogged } = useAuthContext()
   const [userLog, setUserLog] = useState(null)
   const [commentInput, setCommentInput] = useState('')
 
@@ -16,7 +16,6 @@ const CommentsModal = () => {
       setUserLog('Please enter a comment.')
     } else {
       setUserLog(null)
-      console.log('Comment:', commentInput)
 
       const infoToPost = {
         comment: commentInput,
@@ -24,9 +23,28 @@ const CommentsModal = () => {
         queryId: infoToShowInCommentModal.queryId
       }
 
-      console.log(infoToPost)
-      //postComment()
-      // Perform any other actions with the comment input as needed
+      const excecutePost = () => {
+        setShowLoadingSpinner(true)
+        postComment(infoToPost)
+          .then(res => {
+            setUserLog('Comment posted successfully')
+            setShowLoadingSpinner(false)
+            setSyncSavedQueries(!syncSavedQueries)
+          }).catch(e => {
+            setShowLoadingSpinner(false)
+            setUserLog(e.code)
+
+            if (e.code === 'ERR_NETWORK') {
+              setUserLog('Opss! Could not connect to the server')
+              return
+            }
+            if (e.code === 'ERR_BAD_REQUEST') {
+              setUserLog(e.response.data.message)
+            }
+          })
+      }
+
+      excecutePost()
     }
   }
 

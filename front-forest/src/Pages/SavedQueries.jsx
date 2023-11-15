@@ -23,7 +23,10 @@ import { CommentsModal } from '../Components/Modals/CommentsModal'
 const SavedQueries = () => {
   const TABLE_HEAD = ['User', 'Query Name / Description', 'Comments', 'Date', 'Edit']
   const [userLog, setUserLog] = useState(null)
-  const { setShowLoadingSpinner, showSendComment, setShowSendComment, setInfoToShowInCommentModal } = useAppContext()
+  const {
+    setShowLoadingSpinner, showSendComment, setShowSendComment,
+    setInfoToShowInCommentModal, infoToShowInCommentModal, syncSavedQueries
+  } = useAppContext()
   const [savedQueriesResult, setSavedQueriesResult] = useState()
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const SavedQueries = () => {
           setUserLog('Opss! Could not connect to the server')
         }
       })
-  }, [])
+  }, [syncSavedQueries])
 
   const openModalComments = (infoToModal) => {
     setShowSendComment(true)
@@ -116,6 +119,7 @@ const SavedQueries = () => {
                     createdAt,
                     comments
                   }
+
                   const isLast = index === savedQueriesResult.length - 1
                   const classes = isLast
                     ? 'p-4'
@@ -173,7 +177,6 @@ const SavedQueries = () => {
                               color='green'
                             />
                           </Tooltip>
-
                         </div>
                       </td>
                       <td className={classes}>

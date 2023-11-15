@@ -13,6 +13,7 @@ const ContextAppProvider = ({ children }) => {
   const [showSendComment, setShowSendComment] = useState(false)
   const [querySummary, setQuerySummary] = useState('')
   const [infoToShowInCommentModal, setInfoToShowInCommentModal] = useState(null)
+  const [syncSavedQueries, setSyncSavedQueries] = useState(false)
 
   const [userQuery, setUserQuery] = useState({
     queryType: 'tree_quantity',
@@ -120,7 +121,9 @@ const ContextAppProvider = ({ children }) => {
     showSendComment,
     setShowSendComment,
     infoToShowInCommentModal,
-    setInfoToShowInCommentModal
+    setInfoToShowInCommentModal,
+    syncSavedQueries,
+    setSyncSavedQueries
   }
 
   return (
