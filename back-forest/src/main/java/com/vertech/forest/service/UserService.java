@@ -25,4 +25,8 @@ public class UserService {
     public boolean userExists(String userId){
         return userRepository.existsById(userId);
     }
+
+    public UserEntity getUserInfoById(String userId){
+        return userRepository.findById(userId).get();
+    }
 }

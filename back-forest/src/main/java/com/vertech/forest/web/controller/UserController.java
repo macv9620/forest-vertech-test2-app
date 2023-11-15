@@ -77,13 +77,14 @@ public class UserController {
         try {
             boolean userExists = userService.userExists(userId);
             if (userExists){
+                data = userService.getUserInfoById(userId);
                 message = "Authorized";
                 httpStatus = HttpStatus.OK;
             } else {
                 message = "Unauthorized";
                 httpStatus = HttpStatus.UNAUTHORIZED;
+                data = null;
             }
-            data = null;
         } catch (Exception e){
             data = null;
             message = e.getMessage();

@@ -16,9 +16,10 @@ import {
 import { useEffect, useState } from 'react'
 import { getSavedQueries } from '../Service/SaveQuery/getSavedQueries'
 import { useAppContext } from '../Context/AppContextProvider'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './SavedQueries.css'
 import { CommentsModal } from '../Components/Modals/CommentsModal'
+import { useAuthContext } from '../Context/AuthContextProvider'
 
 const SavedQueries = () => {
   const TABLE_HEAD = ['User', 'Query Name / Description', 'Comments', 'Date', 'Edit']
@@ -30,6 +31,25 @@ const SavedQueries = () => {
   } = useAppContext()
 
   const [selectedQueryId, setSelectedQueryId] = useState()
+
+
+  const { userLogged, setUserLogged } = useAuthContext()
+  const navigate = useNavigate()
+
+  // Retrieve loggedUser from sessionStorage on component mount
+  useEffect(() => {
+    const loggedUserString = sessionStorage.getItem('loggedUser')
+    if (loggedUserString) {
+      try {
+        const loggedUserObject = JSON.parse(loggedUserString)
+        setUserLogged(loggedUserObject)
+      } catch (error) {
+        console.error('Error parsing loggedUser from sessionStorage:', error)
+      }
+    } else {
+      navigate('/')
+    }
+  }, [])
 
   useEffect(() => {
     setUserLog(null)

@@ -1,14 +1,14 @@
-import { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthContext = createContext()
 
-// eslint-disable-next-line react/prop-types
 const ContextAuthProvider = ({ children }) => {
   const [userLogged, setUserLogged] = useState({
-    nickName: 'juli95',
-    name: 'Juliana'
+    nickName: '',
+    name: ''
   })
-  const valuesObject = { userLogged }
+
+  const valuesObject = { userLogged, setUserLogged }
 
   return (
     <AuthContext.Provider value={valuesObject}>
@@ -22,5 +22,4 @@ const useAuthContext = () => {
   return contextValue
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export { ContextAuthProvider, useAuthContext }

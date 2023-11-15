@@ -1,11 +1,29 @@
+import { useEffect } from 'react'
 import BarChart from '../Components/Chart/BarChart'
 import { FilterBar } from '../Components/FilterBar/FilterBar'
 import { useAppContext } from '../Context/AppContextProvider'
 import { useAuthContext } from '../Context/AuthContextProvider'
+import { useNavigate } from 'react-router-dom'
 
 const DashBoard = () => {
   const { userErrorLog, querySummary } = useAppContext()
-  const { userLogged } = useAuthContext()
+  const { userLogged, setUserLogged } = useAuthContext()
+  const navigate = useNavigate()
+
+  // Retrieve loggedUser from sessionStorage on component mount
+  useEffect(() => {
+    const loggedUserString = sessionStorage.getItem('loggedUser')
+    if (loggedUserString) {
+      try {
+        const loggedUserObject = JSON.parse(loggedUserString)
+        setUserLogged(loggedUserObject)
+      } catch (error) {
+        console.error('Error parsing loggedUser from sessionStorage:', error)
+      }
+    } else {
+      navigate('/')
+    }
+  }, [])
 
   return (
     <div className='dashboard font-sans flex justify-center'>
