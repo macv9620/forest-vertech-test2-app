@@ -25,8 +25,6 @@ const MultiCheckSpecie = () => {
     }
   }
 
-  console.log(JSON.stringify(selectedValues))
-
   return (
     <div className='w-40'>
       <Select variant='outlined' label='Filter by specie' className='bg-white rounded'>

@@ -1,8 +1,8 @@
 import axios from 'axios'
-const BASE_URL = 'http://localhost:8080/api/query/getData'
+const BASE_URL = 'http://localhost:8080/api/userComment/save'
 
-const getByQueryData = (userQuery) => {
-  const data = JSON.stringify(userQuery)
+const postComment = (commentInfo) => {
+  const data = JSON.stringify(commentInfo)
 
   const config = {
     method: 'post',
@@ -11,10 +11,10 @@ const getByQueryData = (userQuery) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    data: data
+    data
   }
 
   return axios.request(config)
 }
 
-export { getByQueryData }
+export { postComment }

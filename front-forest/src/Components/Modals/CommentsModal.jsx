@@ -1,41 +1,78 @@
-import { Button, Card, Input, Textarea, Typography } from '@material-tailwind/react'
+import { Avatar, Button, Card, Chip, Input, Typography } from '@material-tailwind/react'
 import { useAppContext } from '../../Context/AppContextProvider'
-
-const TABLE_HEAD = ['Name', 'Job', 'Employed', '']
-
-const TABLE_ROWS = [
-  {
-    name: 'John Michael',
-    job: 'Manager',
-    date: '23/04/18'
-  },
-  {
-    name: 'Alexa Liras',
-    job: 'Developer',
-    date: '23/04/18'
-  },
-  {
-    name: 'Laurent Perrier',
-    job: 'Executive',
-    date: '19/09/17'
-  },
-  {
-    name: 'Michael Levi',
-    job: 'Developer',
-    date: '24/12/08'
-  },
-  {
-    name: 'Richard Gran',
-    job: 'Manager',
-    date: '04/10/21'
-  }
-]
+import { useEffect, useState } from 'react'
+import { postComment } from '../../Service/SaveComment/SaveComment'
+import { useAuthContext } from '../../Context/AuthContextProvider'
 
 const CommentsModal = () => {
-  const { setShowSendComment } = useAppContext()
+  const TABLE_HEAD = ['Comment', 'Name', 'NickName', 'Date']
+  const { setShowSendComment, infoToShowInCommentModal } = useAppContext()
+  const {userLogged} = useAuthContext()
+  const [userLog, setUserLog] = useState(null)
+  const [commentInput, setCommentInput] = useState('')
+
+  const handleSendComment = () => {
+    if (commentInput.trim() === '') {
+      setUserLog('Please enter a comment.')
+    } else {
+      setUserLog(null)
+      console.log('Comment:', commentInput)
+
+      const infoToPost = {
+        comment: commentInput,
+        commentNickName: userLogged.nickName,
+        queryId: infoToShowInCommentModal.queryId
+      }
+
+      console.log(infoToPost)
+      //postComment()
+      // Perform any other actions with the comment input as needed
+    }
+  }
+
+  useEffect(() => {
+    if (infoToShowInCommentModal.comments.length === 0) {
+      setUserLog('There are no comments for this query yet')
+    }
+  }, [infoToShowInCommentModal])
+
   return (
     <div className='modal-background flex flex-col'>
-      <Card className='w-3/4 h-1/2'>
+      <div className='flex w-3/4'>
+        <div className='bg-black w-1/4 text-white flex justify-center items-center h-10 rounded-tl-lg'><h1>COMMENTS</h1></div>
+        <div className='w-3/4 bg-white flex justify-center items-center h-10 rounded-tr-lg gap-8'>
+          <Chip
+            className='cursor-pointer'
+            variant='ghost'
+            size='sm'
+            value={infoToShowInCommentModal.queryName}
+            color='green'
+          />
+          <Chip
+            icon={
+              <Avatar
+                size='xs'
+                variant='circular'
+                className='h-full w-full -translate-x-0.5'
+                alt={infoToShowInCommentModal.userName}
+                src={infoToShowInCommentModal.imgIcon}
+              />
+      }
+            value={
+              <Typography
+                variant='small'
+                color='white'
+                className='font-medium capitalize leading-none'
+              >
+                {infoToShowInCommentModal.userName}
+              </Typography>
+      }
+            className='rounded-full py-1.5'
+          />
+        </div>
+      </div>
+
+      <Card className='w-3/4 h-1/2 scroll-container'>
         <table className='w-full min-w-max table-auto text-left'>
           <thead>
             <tr>
@@ -53,26 +90,44 @@ const CommentsModal = () => {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ name, job, date }, index) => (
-              <tr key={name} className='even:bg-blue-gray-50/50'>
+            {infoToShowInCommentModal.comments.map(({ comment, user, createdAt }, index) => (
+              <tr key={index} className='even:bg-blue-gray-50/50'>
                 <td className='p-4'>
                   <Typography variant='small' color='blue-gray' className='font-normal'>
-                    {name}
+                    {comment}
                   </Typography>
                 </td>
                 <td className='p-4'>
                   <Typography variant='small' color='blue-gray' className='font-normal'>
-                    {job}
+                    {user.name}
                   </Typography>
                 </td>
                 <td className='p-4'>
-                  <Typography variant='small' color='blue-gray' className='font-normal'>
-                    {date}
-                  </Typography>
+                  <Chip
+                    icon={
+                      <Avatar
+                        size='xs'
+                        variant='circular'
+                        className='h-full w-full -translate-x-0.5'
+                        alt={user.name}
+                        src={'https://placehold.co/155x232/f6f8fa/black?text=' + user.name[0].toUpperCase()}
+                      />
+      }
+                    value={
+                      <Typography
+                        variant='small'
+                        color='white'
+                        className='font-medium normal-case leading-none'
+                      >
+                        {'@' + user.nickName}
+                      </Typography>
+      }
+                    className='rounded-full py-1.5 w-28'
+                  />
                 </td>
                 <td className='p-4'>
                   <Typography as='a' href='#' variant='small' color='blue-gray' className='font-medium'>
-                    Edit
+                    {(new Date(createdAt)).toString().slice(0, 21)}
                   </Typography>
                 </td>
               </tr>
@@ -81,18 +136,26 @@ const CommentsModal = () => {
         </table>
       </Card>
 
-      <div className='w-3/4 h-20 flex justify-center bg-white rounded-md items-center gap-10'>
-        <div className='w-[30rem] flex items-center justify-center'>
-          <Input label='Add your comment here' success />
+      <div className='w-3/4 bg-white rounded-md flex flex-col justify-center'>
+        <h1 className='text-red-300 text-xs p-1 font-bold self-center'>{userLog}</h1>
+        <div className='flex justify-center bg-white items-center gap-10 h-20 rounded-md'>
+          <div className='w-[30rem] flex items-center justify-center'>
+            <Input
+              label='Add your comment here'
+              success
+              value={commentInput}
+              onChange={(e) => setCommentInput(e.target.value)}
+            />
+          </div>
+          <div className='flex gap-2'>
+            <Button className='bg-green-500' onClick={handleSendComment}>
+              SEND COMMENT
+            </Button>
+            <Button onClick={() => setShowSendComment(false)}>CLOSE</Button>
+          </div>
+          <div />
         </div>
-        <div className='flex gap-2'>
-          <Button className='bg-green-500'>SEND COMMENT</Button>
-
-          <Button onClick={() => setShowSendComment(false)}>CLOSE</Button>
-        </div>
-        <div />
       </div>
-
     </div>
 
   )

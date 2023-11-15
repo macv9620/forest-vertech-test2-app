@@ -27,8 +27,6 @@ const MultiCheckState = () => {
     }
   }
 
-  console.log(JSON.stringify(selectedValues))
-
   return (
     <div className='w-20'>
       <Select variant='outlined' label='Filter by state' className='bg-white rounded'>

@@ -27,7 +27,6 @@ const SaveModal = (props) => {
 
   const validateInputs = () => {
     if (!queryName.trim() || !queryDescription.trim()) {
-      console.log('No info in both fields')
       setCheckUserLog('Query name and Query description are required')
       return false
     }
@@ -47,7 +46,6 @@ const SaveModal = (props) => {
 
       postQuery(queryData)
         .then(res => {
-          console.log(res)
           setCheckUserLog(res.data.message)
           setShowSaveButton(false)
           setShowLoadingSpinner(false)
@@ -60,7 +58,6 @@ const SaveModal = (props) => {
           }
 
           if (e.code === 'ERR_BAD_REQUEST') {
-            console.log(e)
             setCheckUserLog(e.response.data.message)
           }
         })

@@ -61,8 +61,6 @@ const SimpleRegistrationForm = () => {
         inventoryYear: [fromYear, toYear]
       }
     }).then((res) => {
-      console.log(res)
-      console.log(res.data.data.length)
       if (res.data.data.length === 0) {
         setQueryResultData(null)
         setUserErrorLog('Your query returned no results, update your filters and run again')
@@ -94,13 +92,6 @@ const SimpleRegistrationForm = () => {
         inventoryYear: [fromYear, toYear]
       }
     }))
-    console.log({
-      ...userQuery,
-      filters: {
-        ...userQuery.filters,
-        inventoryYear: [fromYear, toYear]
-      }
-    })
 
     executeQuery()
   }

@@ -5,8 +5,8 @@ const AuthContext = createContext()
 // eslint-disable-next-line react/prop-types
 const ContextAuthProvider = ({ children }) => {
   const [userLogged, setUserLogged] = useState({
-    nickName: 'macv9620',
-    name: 'Mateo'
+    nickName: 'lili89',
+    name: 'Liliana'
   })
   const valuesObject = { userLogged }
 

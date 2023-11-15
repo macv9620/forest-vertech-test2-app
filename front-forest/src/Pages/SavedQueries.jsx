@@ -20,12 +20,12 @@ import { Link } from 'react-router-dom'
 import './SavedQueries.css'
 import { CommentsModal } from '../Components/Modals/CommentsModal'
 
-const TABLE_HEAD = ['User', 'Query Name / Description', 'Comments', 'Date', 'Edit']
-
 const SavedQueries = () => {
+  const TABLE_HEAD = ['User', 'Query Name / Description', 'Comments', 'Date', 'Edit']
   const [userLog, setUserLog] = useState(null)
-  const { setShowLoadingSpinner, showSendComment, setShowSendComment } = useAppContext()
+  const { setShowLoadingSpinner, showSendComment, setShowSendComment, setInfoToShowInCommentModal } = useAppContext()
   const [savedQueriesResult, setSavedQueriesResult] = useState()
+
   useEffect(() => {
     setUserLog(null)
     setShowLoadingSpinner(true)
@@ -43,6 +43,11 @@ const SavedQueries = () => {
         }
       })
   }, [])
+
+  const openModalComments = (infoToModal) => {
+    setShowSendComment(true)
+    setInfoToShowInCommentModal(infoToModal)
+  }
 
   return (
     <>
@@ -100,7 +105,17 @@ const SavedQueries = () => {
             </thead>
             <tbody>
               {savedQueriesResult?.map(
-                ({ user, nickName, queryName, queryDescription, createdAt }, index) => {
+                ({ user, nickName, queryName, queryDescription, createdAt, comments, queryId }, index) => {
+                  const infoToModal = {
+                    queryId,
+                    userName: user.name,
+                    nickName,
+                    queryName,
+                    queryDescription,
+                    imgIcon: 'https://placehold.co/155x232/f6f8fa/black?text=' + user.name[0].toUpperCase(),
+                    createdAt,
+                    comments
+                  }
                   const isLast = index === savedQueriesResult.length - 1
                   const classes = isLast
                     ? 'p-4'
@@ -110,7 +125,7 @@ const SavedQueries = () => {
                     <tr key={index}>
                       <td className={classes}>
                         <div className='flex items-center gap-3'>
-                          <Avatar src={'https://placehold.co/155x232/2F4A6D/white?text=' + user.name[0].toUpperCase()} alt={user.name} size='sm' />
+                          <Avatar src={'https://placehold.co/155x232/531915/white?text=' + user.name[0].toUpperCase()} alt={user.name} size='sm' />
                           <div className='flex flex-col'>
                             <Typography
                               variant='small'
@@ -148,7 +163,7 @@ const SavedQueries = () => {
                         </div>
                       </td>
                       <td className={classes}>
-                        <div className='w-max' onClick={() => setShowSendComment(true)}>
+                        <div className='w-max' onClick={() => openModalComments(infoToModal)}>
                           <Tooltip className='text-center' content='See comments'>
                             <Chip
                               className='cursor-pointer'

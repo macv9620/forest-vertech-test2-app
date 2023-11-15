@@ -9,7 +9,6 @@ const BarChart = () => {
   const width = 1100 - 2 * margin
   const height = 500 - 2 * margin
   const { queryResultData } = useAppContext()
-  console.log(queryResultData)
 
   useEffect(() => {
     if (queryResultData != null) {
@@ -27,7 +26,6 @@ const BarChart = () => {
         .padding(0.3)
 
       const yScale = d3.scaleLinear().range([height, 0]).domain([0, maxY])
-      console.log(height)
 
       chart.append('g').attr('transform', `translate(0, ${height})`).call(d3.axisBottom(xScale))
 

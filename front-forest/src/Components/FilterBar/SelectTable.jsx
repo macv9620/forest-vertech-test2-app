@@ -12,7 +12,6 @@ const SelectTable = () => {
       ...userQuery,
       table: value
     })
-    console.log('Selected value:', value)
   }
 
   return (
