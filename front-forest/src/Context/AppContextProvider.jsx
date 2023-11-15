@@ -15,6 +15,8 @@ const ContextAppProvider = ({ children }) => {
   const [infoToShowInCommentModal, setInfoToShowInCommentModal] = useState(null)
   const [syncSavedQueries, setSyncSavedQueries] = useState(false)
 
+  const [savedQueriesResult, setSavedQueriesResult] = useState(null)
+
   const [userQuery, setUserQuery] = useState({
     queryType: 'tree_quantity',
     table: null,
@@ -123,7 +125,9 @@ const ContextAppProvider = ({ children }) => {
     infoToShowInCommentModal,
     setInfoToShowInCommentModal,
     syncSavedQueries,
-    setSyncSavedQueries
+    setSyncSavedQueries,
+    savedQueriesResult,
+    setSavedQueriesResult
   }
 
   return (

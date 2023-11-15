@@ -25,9 +25,11 @@ const SavedQueries = () => {
   const [userLog, setUserLog] = useState(null)
   const {
     setShowLoadingSpinner, showSendComment, setShowSendComment,
-    setInfoToShowInCommentModal, infoToShowInCommentModal, syncSavedQueries
+    syncSavedQueries,
+    savedQueriesResult, setSavedQueriesResult
   } = useAppContext()
-  const [savedQueriesResult, setSavedQueriesResult] = useState()
+
+  const [selectedQueryId, setSelectedQueryId] = useState()
 
   useEffect(() => {
     setUserLog(null)
@@ -47,15 +49,15 @@ const SavedQueries = () => {
       })
   }, [syncSavedQueries])
 
-  const openModalComments = (infoToModal) => {
+  const openModalComments = (queryId) => {
     setShowSendComment(true)
-    setInfoToShowInCommentModal(infoToModal)
+    setSelectedQueryId(queryId)
   }
 
   return (
     <>
       {showSendComment && (
-        <CommentsModal />
+        <CommentsModal selectedQueryId={selectedQueryId} />
       )}
       <Card className='h-screen w-full flex flex-col justify-around'>
         <CardHeader floated={false} shadow={false} className='rounded-none min-h-[60px]'>
@@ -109,17 +111,6 @@ const SavedQueries = () => {
             <tbody>
               {savedQueriesResult?.map(
                 ({ user, nickName, queryName, queryDescription, createdAt, comments, queryId }, index) => {
-                  const infoToModal = {
-                    queryId,
-                    userName: user.name,
-                    nickName,
-                    queryName,
-                    queryDescription,
-                    imgIcon: 'https://placehold.co/155x232/f6f8fa/black?text=' + user.name[0].toUpperCase(),
-                    createdAt,
-                    comments
-                  }
-
                   const isLast = index === savedQueriesResult.length - 1
                   const classes = isLast
                     ? 'p-4'
@@ -167,7 +158,7 @@ const SavedQueries = () => {
                         </div>
                       </td>
                       <td className={classes}>
-                        <div className='w-max' onClick={() => openModalComments(infoToModal)}>
+                        <div className='w-max' onClick={() => openModalComments(queryId)}>
                           <Tooltip className='text-center' content='See comments'>
                             <Chip
                               className='cursor-pointer'

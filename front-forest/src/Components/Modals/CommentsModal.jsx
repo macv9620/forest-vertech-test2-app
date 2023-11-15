@@ -4,12 +4,29 @@ import { useEffect, useState } from 'react'
 import { postComment } from '../../Service/SaveComment/SaveComment'
 import { useAuthContext } from '../../Context/AuthContextProvider'
 
-const CommentsModal = () => {
+const CommentsModal = (props) => {
   const TABLE_HEAD = ['Comment', 'Name', 'NickName', 'Date']
-  const { setShowSendComment, infoToShowInCommentModal, setShowLoadingSpinner, setSyncSavedQueries, syncSavedQueries } = useAppContext()
+  const { setShowSendComment, setShowLoadingSpinner, setSyncSavedQueries, syncSavedQueries, savedQueriesResult } = useAppContext()
   const { userLogged } = useAuthContext()
   const [userLog, setUserLog] = useState(null)
   const [commentInput, setCommentInput] = useState('')
+
+  const modifiedSavedQueriesList = savedQueriesResult?.map(
+    ({ user, nickName, queryName, queryDescription, createdAt, comments, queryId }, index) => {
+      return {
+        queryId,
+        userName: user.name,
+        nickName,
+        queryName,
+        queryDescription,
+        imgIcon: 'https://placehold.co/155x232/f6f8fa/black?text=' + user.name[0].toUpperCase(),
+        createdAt,
+        comments
+      }
+    })
+
+  const infoToShowInCommentModal = modifiedSavedQueriesList.filter(query => query.queryId === props.selectedQueryId )[0]
+  console.log(infoToShowInCommentModal)
 
   const handleSendComment = () => {
     if (commentInput.trim() === '') {
@@ -108,7 +125,7 @@ const CommentsModal = () => {
             </tr>
           </thead>
           <tbody>
-            {infoToShowInCommentModal.comments.map(({ comment, user, createdAt }, index) => (
+            {infoToShowInCommentModal?.comments?.map(({ comment, user, createdAt }, index) => (
               <tr key={index} className='even:bg-blue-gray-50/50'>
                 <td className='p-4'>
                   <Typography variant='small' color='blue-gray' className='font-normal'>
