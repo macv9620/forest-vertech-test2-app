@@ -1,6 +1,6 @@
 import { Avatar, Button, Card, Chip, Input, Typography } from '@material-tailwind/react'
 import { useAppContext } from '../../Context/AppContextProvider'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { postComment } from '../../Service/SaveComment/SaveComment'
 import { useAuthContext } from '../../Context/AuthContextProvider'
 
@@ -11,8 +11,8 @@ const CommentsModal = (props) => {
   const [userLog, setUserLog] = useState(null)
   const [commentInput, setCommentInput] = useState('')
 
-  const modifiedSavedQueriesList = savedQueriesResult?.map(
-    ({ user, nickName, queryName, queryDescription, createdAt, comments, queryId }, index) => {
+  const updatedSavedQueriesList = savedQueriesResult?.map(
+    ({ user, nickName, queryName, queryDescription, createdAt, comments, queryId }) => {
       return {
         queryId,
         userName: user.name,
@@ -25,19 +25,20 @@ const CommentsModal = (props) => {
       }
     })
 
-  const infoToShowInCommentModal = modifiedSavedQueriesList.filter(query => query.queryId === props.selectedQueryId )[0]
-  console.log(infoToShowInCommentModal)
+  const queryToShowInCommentsModal = updatedSavedQueriesList.filter(query => query.queryId === props.selectedQueryId )[0]
+  console.log(queryToShowInCommentsModal)
 
   const handleSendComment = () => {
-    if (commentInput.trim() === '') {
+    if (commentInput === '') {
       setUserLog('Please enter a comment.')
     } else {
+      console.log('Ejecutanto petición')
       setUserLog(null)
 
       const infoToPost = {
         comment: commentInput,
         commentNickName: userLogged.nickName,
-        queryId: infoToShowInCommentModal.queryId
+        queryId: queryToShowInCommentsModal.queryId
       }
 
       const excecutePost = () => {
@@ -47,6 +48,7 @@ const CommentsModal = (props) => {
             setUserLog('Comment posted successfully')
             setShowLoadingSpinner(false)
             setSyncSavedQueries(!syncSavedQueries)
+            setCommentInput('')
           }).catch(e => {
             setShowLoadingSpinner(false)
             setUserLog(e.code)
@@ -65,12 +67,6 @@ const CommentsModal = (props) => {
     }
   }
 
-  useEffect(() => {
-    if (infoToShowInCommentModal.comments.length === 0) {
-      setUserLog('There are no comments for this query yet')
-    }
-  }, [infoToShowInCommentModal])
-
   return (
     <div className='modal-background flex flex-col'>
       <div className='flex w-3/4'>
@@ -80,7 +76,7 @@ const CommentsModal = (props) => {
             className='cursor-pointer'
             variant='ghost'
             size='sm'
-            value={infoToShowInCommentModal.queryName}
+            value={queryToShowInCommentsModal.queryName}
             color='green'
           />
           <Chip
@@ -89,8 +85,8 @@ const CommentsModal = (props) => {
                 size='xs'
                 variant='circular'
                 className='h-full w-full -translate-x-0.5'
-                alt={infoToShowInCommentModal.userName}
-                src={infoToShowInCommentModal.imgIcon}
+                alt={queryToShowInCommentsModal.userName}
+                src={queryToShowInCommentsModal.imgIcon}
               />
       }
             value={
@@ -99,7 +95,7 @@ const CommentsModal = (props) => {
                 color='white'
                 className='font-medium capitalize leading-none'
               >
-                {infoToShowInCommentModal.userName}
+                {queryToShowInCommentsModal.userName}
               </Typography>
       }
             className='rounded-full py-1.5'
@@ -125,7 +121,7 @@ const CommentsModal = (props) => {
             </tr>
           </thead>
           <tbody>
-            {infoToShowInCommentModal?.comments?.map(({ comment, user, createdAt }, index) => (
+            {queryToShowInCommentsModal?.comments?.map(({ comment, user, createdAt }, index) => (
               <tr key={index} className='even:bg-blue-gray-50/50'>
                 <td className='p-4'>
                   <Typography variant='small' color='blue-gray' className='font-normal'>
@@ -176,7 +172,7 @@ const CommentsModal = (props) => {
         <div className='flex justify-center bg-white items-center gap-10 h-20 rounded-md'>
           <div className='w-[30rem] flex items-center justify-center'>
             <Input
-              label='Add your comment here'
+              label='¡Add your comment here!'
               success
               value={commentInput}
               onChange={(e) => setCommentInput(e.target.value)}

@@ -110,7 +110,7 @@ const SavedQueries = () => {
             </thead>
             <tbody>
               {savedQueriesResult?.map(
-                ({ user, nickName, queryName, queryDescription, createdAt, comments, queryId }, index) => {
+                ({ user, nickName, queryName, queryDescription, createdAt, queryId }, index) => {
                   const isLast = index === savedQueriesResult.length - 1
                   const classes = isLast
                     ? 'p-4'

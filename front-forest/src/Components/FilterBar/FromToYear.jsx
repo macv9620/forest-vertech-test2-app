@@ -126,7 +126,14 @@ const SimpleRegistrationForm = () => {
       </div>
       <div>
         <Link to='/savedQueries'>
-          <Button className='w-30'>
+          <Button
+            className='w-30'
+            onClick={() => {
+              setFromYear('')
+              setToYear('')
+              setQueryResultData(null)
+            }}
+          >
             GO TO SAVED QUERIES
           </Button>
         </Link>

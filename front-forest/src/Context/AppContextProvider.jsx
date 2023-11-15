@@ -12,7 +12,6 @@ const ContextAppProvider = ({ children }) => {
   const [showSaveForm, setShowSaveForm] = useState(false)
   const [showSendComment, setShowSendComment] = useState(false)
   const [querySummary, setQuerySummary] = useState('')
-  const [infoToShowInCommentModal, setInfoToShowInCommentModal] = useState(null)
   const [syncSavedQueries, setSyncSavedQueries] = useState(false)
 
   const [savedQueriesResult, setSavedQueriesResult] = useState(null)
@@ -122,8 +121,6 @@ const ContextAppProvider = ({ children }) => {
     querySummaryBuilder,
     showSendComment,
     setShowSendComment,
-    infoToShowInCommentModal,
-    setInfoToShowInCommentModal,
     syncSavedQueries,
     setSyncSavedQueries,
     savedQueriesResult,
