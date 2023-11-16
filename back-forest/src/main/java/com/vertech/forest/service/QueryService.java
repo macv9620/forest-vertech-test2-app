@@ -7,6 +7,7 @@ import com.vertech.forest.web.controller.exceptions.CheckDataCustomException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QueryService {
@@ -27,5 +28,9 @@ public class QueryService {
 
     public List<QueryEntity> getAll(){
         return queryRepository.findAll();
+    }
+
+    public Optional<QueryEntity> getQueryById(int queryId){
+        return queryRepository.findById(queryId);
     }
 }

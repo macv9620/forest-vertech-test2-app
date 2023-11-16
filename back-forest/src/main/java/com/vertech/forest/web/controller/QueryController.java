@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/userQuery")
@@ -70,6 +71,39 @@ public class QueryController {
         }
 
         ResponseWrapper<List<QueryEntity>> responseWrapper = new ResponseWrapper<>(
+                message,
+                data
+        );
+
+        return new ResponseEntity<>(responseWrapper, httpStatus);
+    }
+
+    @GetMapping("/getById/{queryId}")
+    public ResponseEntity<ResponseWrapper<?>> getQueryById(@PathVariable int queryId) {
+
+        String message;
+        QueryEntity data;
+        HttpStatus httpStatus;
+
+        try {
+            Optional<QueryEntity> queryOptional = queryService.getQueryById(queryId);
+
+            if (queryOptional.isPresent()) {
+                data = queryOptional.get();
+                message = "Query found";
+                httpStatus = HttpStatus.OK;
+            } else {
+                data = null;
+                message = "Query not found";
+                httpStatus = HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception e) {
+            data = null;
+            message = e.getMessage();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        ResponseWrapper<QueryEntity> responseWrapper = new ResponseWrapper<>(
                 message,
                 data
         );
