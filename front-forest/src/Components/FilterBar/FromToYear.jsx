@@ -54,6 +54,13 @@ const SimpleRegistrationForm = () => {
 
   const executeQuery = () => {
     setShowLoadingSpinner(true)
+    console.log({
+      ...userQuery,
+      filters: {
+        ...userQuery.filters,
+        inventoryYear: [fromYear, toYear]
+      }
+    })
     getByQueryData({
       ...userQuery,
       filters: {

@@ -8,7 +8,7 @@ import { LoggedUserModal } from '../Components/Modals/LoggedUserModal'
 import { getQueryById } from '../Service/SaveQuery/getQueryById'
 
 const DashBoard = () => {
-  const { userErrorLog, querySummary } = useAppContext()
+  const { userErrorLog, querySummary, setSelectedQueryFromSavedQueries } = useAppContext()
   const { userLogged, setUserLogged } = useAuthContext()
   const navigate = useNavigate()
 
@@ -34,6 +34,15 @@ const DashBoard = () => {
       getQueryById(paramsObject.selectedQueryId)
         .then(response => {
           console.log('response:', JSON.parse(response.data.data.queryJson))
+          const queryObject = JSON.parse(response.data.data.queryJson)
+          setSelectedQueryFromSavedQueries((prevSelectedQuery) => ({
+            ...prevSelectedQuery,
+            filters: {
+              ...prevSelectedQuery.filters,
+              specieCode: queryObject.filters.specieCode,
+              stateCode: queryObject.filters.stateCode
+            }
+          }))
         }).catch(error => {
           console.error('error:', error)
         })

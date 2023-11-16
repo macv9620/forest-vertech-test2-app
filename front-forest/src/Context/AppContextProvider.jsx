@@ -13,8 +13,18 @@ const ContextAppProvider = ({ children }) => {
   const [showSendComment, setShowSendComment] = useState(false)
   const [querySummary, setQuerySummary] = useState('')
   const [syncSavedQueries, setSyncSavedQueries] = useState(false)
-
   const [savedQueriesResult, setSavedQueriesResult] = useState(null)
+
+  const [selectedQueryFromSavedQueries, setSelectedQueryFromSavedQueries] = useState({
+    queryType: 'tree_quantity',
+    table: null,
+    filters: {
+      stateCode: null,
+      inventoryYear: null,
+      treeHeight: null,
+      specieCode: null
+    }
+  })
 
   const [userQuery, setUserQuery] = useState({
     queryType: 'tree_quantity',
@@ -65,25 +75,31 @@ const ContextAppProvider = ({ children }) => {
     }
   ])
 
-  const querySummaryBuilder = (queryObject) => {
+  const querySummaryBuilder = ({ userQuery, speciesInfo, statesInfo }) => {
     const filtersList = []
 
-    if (queryObject.table === null) {
+    if (userQuery.table === null) {
       filtersList.push('Table: no selected')
-    } else if (queryObject.table === 'plot_tree') {
+    } else if (userQuery.table === 'plot_tree') {
       filtersList.push('Table: Number of trees')
     }
 
-    if (queryObject.filters.stateCode === null) {
+    if (userQuery.filters.stateCode === null) {
       filtersList.push('States: all')
     } else {
-      filtersList.push('States: ' + queryObject.filters.stateCode.join(', '))
+      filtersList.push('States: ' + userQuery.filters.stateCode.map((stateCode) => {
+        const state = statesInfo.find((state) => state.stateCode === stateCode)
+        return state.stateName
+      }).join(', '))
     }
 
-    if (queryObject.filters.specieCode === null) {
+    if (userQuery.filters.specieCode === null) {
       filtersList.push('Species: all')
     } else {
-      filtersList.push('Species: ' + queryObject.filters.specieCode.join(', '))
+      filtersList.push('Species: ' + userQuery.filters.specieCode.map((specieCode) => {
+        const specie = speciesInfo.find((specie) => specie.specieCode === specieCode)
+        return specie.specieName
+      }).join(', '))
     }
 
     if (fromYear === '' && toYear === '') {
@@ -96,7 +112,7 @@ const ContextAppProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    setQuerySummary(querySummaryBuilder(userQuery))
+    setQuerySummary(querySummaryBuilder({ userQuery, speciesInfo, statesInfo }))
   }, [userQuery, toYear, fromYear])
 
   const valuesObject = {
@@ -124,7 +140,9 @@ const ContextAppProvider = ({ children }) => {
     syncSavedQueries,
     setSyncSavedQueries,
     savedQueriesResult,
-    setSavedQueriesResult
+    setSavedQueriesResult,
+    selectedQueryFromSavedQueries,
+    setSelectedQueryFromSavedQueries
   }
 
   return (

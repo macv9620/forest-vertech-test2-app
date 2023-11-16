@@ -3,8 +3,14 @@ import { Checkbox, Select } from '@material-tailwind/react'
 import { useAppContext } from '../../Context/AppContextProvider'
 
 const MultiCheckSpecie = () => {
-  const { setUserQuery, speciesInfo } = useAppContext()
+  const { setUserQuery, speciesInfo, selectedQueryFromSavedQueries } = useAppContext()
   const [selectedValues, setSelectedValues] = useState([])
+
+  useEffect(() => {
+    if (selectedQueryFromSavedQueries.filters.specieCode) {
+      setSelectedValues(selectedQueryFromSavedQueries.filters.specieCode)
+    }
+  }, [selectedQueryFromSavedQueries])
 
   useEffect(() => {
     // Update stateCode in userQuery when selectedValues change
@@ -37,7 +43,6 @@ const MultiCheckSpecie = () => {
             onChange={() => handleCheckboxChange(specie.specieCode)}
           />
         ))}
-        <p>Selected values: {JSON.stringify(selectedValues)}</p>
       </Select>
     </div>
 
