@@ -1,4 +1,4 @@
-import { ComputerDesktopIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { ComputerDesktopIcon } from '@heroicons/react/24/outline'
 import { PencilIcon } from '@heroicons/react/24/solid'
 import {
   Card,
@@ -107,11 +107,13 @@ const SavedQueries = () => {
               </div>
             </div>
             <div className='flex shrink-0 flex-col gap-2 sm:flex-row'>
-              <Link to='/dashboard/general'>
-                <Button className='flex items-center gap-3' size='sm'>
-                  <ComputerDesktopIcon strokeWidth={2} className='h-4 w-4' /> Go to Dashboard
-                </Button>
-              </Link>
+              <Button
+                className='flex items-center gap-3'
+                size='sm'
+                onClick={() => (window.location.href = '/dashboard/general')}
+              >
+                <ComputerDesktopIcon strokeWidth={2} className='h-4 w-4' /> Go to Dashboard
+              </Button>
             </div>
           </div>
 

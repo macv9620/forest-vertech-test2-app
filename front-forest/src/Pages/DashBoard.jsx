@@ -14,9 +14,6 @@ const DashBoard = () => {
 
   const paramsObject = useParams()
 
-  console.log('paramsObject:', paramsObject)
-
-  // Retrieve loggedUser from sessionStorage on component mount
   useEffect(() => {
     const loggedUserString = sessionStorage.getItem('loggedUser')
     if (loggedUserString) {
@@ -29,14 +26,16 @@ const DashBoard = () => {
     } else {
       navigate('/')
     }
-
+console.log('paramsObject:', paramsObject)
     if (paramsObject?.selectedQueryId !== 'general') {
       getQueryById(paramsObject.selectedQueryId)
         .then(response => {
           console.log('response:', JSON.parse(response.data.data.queryJson))
           const queryObject = JSON.parse(response.data.data.queryJson)
+          console.log('queryObject:', queryObject.table)
           setSelectedQueryFromSavedQueries((prevSelectedQuery) => ({
             ...prevSelectedQuery,
+            table: queryObject.table,
             filters: {
               ...prevSelectedQuery.filters,
               specieCode: queryObject.filters.specieCode,

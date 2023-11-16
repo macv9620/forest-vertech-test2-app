@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Select, Option } from '@material-tailwind/react'
 import { useAppContext } from '../../Context/AppContextProvider'
 
 const SelectTable = () => {
-  const { setUserQuery, userQuery } = useAppContext()
+  const { setUserQuery, userQuery, selectedQueryFromSavedQueries } = useAppContext()
   const [selectedValue, setSelectedValue] = useState('')
+
+  useEffect(() => {
+    console.log(selectedQueryFromSavedQueries.table)
+    if (selectedQueryFromSavedQueries.table) {
+      setSelectedValue(selectedQueryFromSavedQueries.table)
+      setUserQuery({
+        ...userQuery,
+        table: selectedQueryFromSavedQueries.table
+      })
+    }
+  }, [selectedQueryFromSavedQueries])
 
   const handleSelectChange = (value) => {
     setSelectedValue(value)
