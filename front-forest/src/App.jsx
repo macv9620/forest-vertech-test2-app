@@ -15,7 +15,7 @@ function App () {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/signUp' element={<SignUp />} />
-          <Route path='/dashboard' element={<DashBoard />} />
+          <Route path='/dashboard/:selectedQueryId' element={<DashBoard />} />
           <Route path='/savedQueries' element={<SavedQueries />} />
         </Routes>
       </BrowserRouter>

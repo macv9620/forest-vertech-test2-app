@@ -3,13 +3,18 @@ import BarChart from '../Components/Chart/BarChart'
 import { FilterBar } from '../Components/FilterBar/FilterBar'
 import { useAppContext } from '../Context/AppContextProvider'
 import { useAuthContext } from '../Context/AuthContextProvider'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { LoggedUserModal } from '../Components/Modals/LoggedUserModal'
+import { getQueryById } from '../Service/SaveQuery/getQueryById'
 
 const DashBoard = () => {
   const { userErrorLog, querySummary } = useAppContext()
   const { userLogged, setUserLogged } = useAuthContext()
   const navigate = useNavigate()
+
+  const paramsObject = useParams()
+
+  console.log('paramsObject:', paramsObject)
 
   // Retrieve loggedUser from sessionStorage on component mount
   useEffect(() => {
@@ -23,6 +28,15 @@ const DashBoard = () => {
       }
     } else {
       navigate('/')
+    }
+
+    if (paramsObject?.selectedQueryId !== 'general') {
+      getQueryById(paramsObject.selectedQueryId)
+        .then(response => {
+          console.log('response:', JSON.parse(response.data.data.queryJson))
+        }).catch(error => {
+          console.error('error:', error)
+        })
     }
   }, [])
 

@@ -107,7 +107,7 @@ const SavedQueries = () => {
               </div>
             </div>
             <div className='flex shrink-0 flex-col gap-2 sm:flex-row'>
-              <Link to='/dashboard'>
+              <Link to='/dashboard/general'>
                 <Button className='flex items-center gap-3' size='sm'>
                   <ComputerDesktopIcon strokeWidth={2} className='h-4 w-4' /> Go to Dashboard
                 </Button>
@@ -208,11 +208,13 @@ const SavedQueries = () => {
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Tooltip className='text-center' content='Edit in Dashboard'>
-                          <IconButton variant='text'>
-                            <PencilIcon className='h-4 w-4' />
-                          </IconButton>
-                        </Tooltip>
+                        <Link to={'/dashBoard/' + queryId}>
+                          <Tooltip className='text-center' content='Edit in Dashboard'>
+                            <IconButton variant='text'>
+                              <PencilIcon className='h-4 w-4' />
+                            </IconButton>
+                          </Tooltip>
+                        </Link>
                       </td>
                     </tr>
                   )

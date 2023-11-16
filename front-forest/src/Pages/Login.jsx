@@ -25,7 +25,7 @@ const Login = () => {
           setShowLoadingSpinner(false)
           console.log(res.data.data)
           sessionStorage.setItem('loggedUser', JSON.stringify(res.data.data))
-          navigate('/dashBoard')
+          navigate('/dashBoard/general')
         })
         .catch((e) => {
           setShowLoadingSpinner(false)

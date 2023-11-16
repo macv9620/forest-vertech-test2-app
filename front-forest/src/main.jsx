@@ -7,10 +7,10 @@ import { ContextAuthProvider } from './Context/AuthContextProvider.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-  <ContextAppProvider>
-    <ContextAuthProvider>
-      <App />
-    </ContextAuthProvider>
-  </ContextAppProvider>
+    <ContextAppProvider>
+      <ContextAuthProvider>
+        <App />
+      </ContextAuthProvider>
+    </ContextAppProvider>
   </React.StrictMode>
 )
