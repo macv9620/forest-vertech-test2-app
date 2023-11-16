@@ -27,11 +27,11 @@ const SimpleRegistrationForm = () => {
     } else if (Number(fromYear) > Number(toYear)) {
       setUserErrorLog('From year must be < To year')
       return false
-    } else if (Number(fromYear) < 1990 || Number(fromYear) > 2050) {
-      setUserErrorLog('Please type years between 1990 and 2024')
+    } else if (Number(fromYear) < 1990 || Number(fromYear) > 2019) {
+      setUserErrorLog('Please type years between 1990 and 2019')
       return false
     } else if (Number(toYear) < 1950 || Number(toYear) > 2019) {
-      setUserErrorLog('Please type years between 1950 and 2019')
+      setUserErrorLog('Please type years between 1990 and 2019')
       return false
     }
 

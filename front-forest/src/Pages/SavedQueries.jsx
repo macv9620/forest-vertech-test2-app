@@ -32,9 +32,14 @@ const SavedQueries = () => {
 
   const [selectedQueryId, setSelectedQueryId] = useState()
 
-
   const { userLogged, setUserLogged } = useAuthContext()
   const navigate = useNavigate()
+
+  const [searchNickname, setSearchNickname] = useState('')
+
+  const filteredQueries = savedQueriesResult?.filter(({ nickName }) =>
+    nickName.toLowerCase().includes(searchNickname.toLowerCase())
+  )
 
   // Retrieve loggedUser from sessionStorage on component mount
   useEffect(() => {
@@ -91,10 +96,11 @@ const SavedQueries = () => {
               </Typography>
             </div>
             <div className='flex flex-col items-center justify-center gap-4 md:flex-row'>
-              <div className='w-full md:w-72'>
+              <div className='w-full md:w-40'>
                 <Input
-                  label='Search'
-                  icon={<MagnifyingGlassIcon className='h-5 w-5' />}
+                  label='Search Queries by nickname'
+                  value={searchNickname}
+                  onChange={(e) => setSearchNickname(e.target.value)}
                 />
               </div>
             </div>
@@ -129,7 +135,7 @@ const SavedQueries = () => {
               </tr>
             </thead>
             <tbody>
-              {savedQueriesResult?.map(
+              {filteredQueries?.map(
                 ({ user, nickName, queryName, queryDescription, createdAt, queryId }, index) => {
                   const isLast = index === savedQueriesResult.length - 1
                   const classes = isLast

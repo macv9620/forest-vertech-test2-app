@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { postLogin } from '../Service/Login/PostLogin'
 import { useAppContext } from '../Context/AppContextProvider'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -83,9 +83,9 @@ const Login = () => {
             {userLog}
           </h1>
           <div className='mt-6 text-blue-900 text-center'>
-            <a href='#' className='hover:underline'>
+            <Link to='/signUp'>
               Sign up Here
-            </a>
+            </Link>
           </div>
         </div>
       </div>
