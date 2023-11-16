@@ -148,7 +148,7 @@ const CommentsModal = (props) => {
                       <Typography
                         variant='small'
                         color='white'
-                        className='font-medium normal-case leading-none'
+                        className='font-medium normal-case leading-none text-xs'
                       >
                         {'@' + user.nickName}
                       </Typography>

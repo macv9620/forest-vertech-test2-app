@@ -20,6 +20,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import './SavedQueries.css'
 import { CommentsModal } from '../Components/Modals/CommentsModal'
 import { useAuthContext } from '../Context/AuthContextProvider'
+import { LoggedUserModal } from '../Components/Modals/LoggedUserModal'
 
 const SavedQueries = () => {
   const TABLE_HEAD = ['User', 'Query Name / Description', 'Comments', 'Date', 'Edit']
@@ -81,6 +82,7 @@ const SavedQueries = () => {
 
   return (
     <>
+      <LoggedUserModal userName={userLogged.name} />
       {showSendComment && (
         <CommentsModal selectedQueryId={selectedQueryId} />
       )}
