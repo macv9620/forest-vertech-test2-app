@@ -1,6 +1,5 @@
 import {
   Input,
-  Typography,
   Button
 } from '@material-tailwind/react'
 import { useAppContext } from '../../Context/AppContextProvider'

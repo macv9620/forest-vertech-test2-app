@@ -8,7 +8,7 @@ import { LoggedUserModal } from '../Components/Modals/LoggedUserModal'
 import { getQueryById } from '../Service/SaveQuery/getQueryById'
 
 const DashBoard = () => {
-  const { userErrorLog, querySummary, setSelectedQueryFromSavedQueries } = useAppContext()
+  const { userErrorLog, querySummary, setSelectedQueryFromSavedQueries, setFromYear, setToYear } = useAppContext()
   const { userLogged, setUserLogged } = useAuthContext()
   const navigate = useNavigate()
 
@@ -26,22 +26,29 @@ const DashBoard = () => {
     } else {
       navigate('/')
     }
-console.log('paramsObject:', paramsObject)
+    console.log('paramsObject:', paramsObject)
     if (paramsObject?.selectedQueryId !== 'general') {
       getQueryById(paramsObject.selectedQueryId)
         .then(response => {
           console.log('response:', JSON.parse(response.data.data.queryJson))
+
           const queryObject = JSON.parse(response.data.data.queryJson)
+
           console.log('queryObject:', queryObject.table)
+
           setSelectedQueryFromSavedQueries((prevSelectedQuery) => ({
             ...prevSelectedQuery,
             table: queryObject.table,
             filters: {
               ...prevSelectedQuery.filters,
               specieCode: queryObject.filters.specieCode,
-              stateCode: queryObject.filters.stateCode
+              stateCode: queryObject.filters.stateCode,
+              inventoryYear: queryObject.filters.inventoryYear
             }
           }))
+
+          setFromYear(queryObject.filters.inventoryYear[0])
+          setToYear(queryObject.filters.inventoryYear[1])
         }).catch(error => {
           console.error('error:', error)
         })
