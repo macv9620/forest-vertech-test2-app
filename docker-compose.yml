@@ -1,5 +1,25 @@
 version: '3.8'
 services:
+  java_forest_db:
+      container_name: java_forest_db
+      restart: always
+      image: postgres:13.1-alpine
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
+      volumes:
+        - ./data:/var/lib/postgresql/data
+  java_forest_react:
+    container_name: java_forest_react
+    image: forest-react-app:1.0.0
+    build: ./front-forest
+    ports:
+      - 9000:9000
+    depends_on:
+      - java_forest_db
   java_forest_app:
     container_name: java_forest_app
     image: forest-java-app:1.0.0
@@ -12,24 +32,4 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
     depends_on:
-      - java_forest_db
-  java_forest_db:
-    container_name: java_forest_db
-    restart: always
-    image: postgres:13.1-alpine
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    volumes:
-      - ./data:/var/lib/postgresql/data
-  java_forest_react:
-    container_name: java_forest_react
-    image: forest-react-app:1.0.0
-    build: ./front-forest
-    ports:
-      - 9000:9000
-    depends_on:
-      - java_forest_app
+      - java_forest_react
