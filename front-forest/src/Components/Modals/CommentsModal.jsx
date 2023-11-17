@@ -25,7 +25,7 @@ const CommentsModal = (props) => {
       }
     })
 
-  const queryToShowInCommentsModal = updatedSavedQueriesList.filter(query => query.queryId === props.selectedQueryId )[0]
+  const queryToShowInCommentsModal = updatedSavedQueriesList.filter(query => query.queryId === props.selectedQueryId)[0]
   console.log(queryToShowInCommentsModal)
 
   const handleSendComment = () => {
@@ -72,6 +72,7 @@ const CommentsModal = (props) => {
       <div className='flex w-3/4'>
         <div className='bg-black w-1/4 text-white flex justify-center items-center h-10 rounded-tl-lg'><h1>COMMENTS</h1></div>
         <div className='w-3/4 bg-white flex justify-center items-center h-10 rounded-tr-lg gap-8'>
+          <p>Query name:</p>
           <Chip
             className='cursor-pointer'
             variant='ghost'
@@ -79,6 +80,8 @@ const CommentsModal = (props) => {
             value={queryToShowInCommentsModal.queryName}
             color='green'
           />
+          <p>by:</p>
+
           <Chip
             icon={
               <Avatar
