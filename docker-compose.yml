@@ -12,6 +12,11 @@ services:
         POSTGRES_DB: postgres
       volumes:
         - ./data:/var/lib/postgresql/data
+      healthcheck:
+        test: ["CMD", "pg_isready", "-U", "postgres"]
+        interval: 2s
+        timeout: 5s
+        retries: 10
   java_forest_react:
     container_name: java_forest_react
     image: forest-react-app:1.0.0
@@ -20,8 +25,6 @@ services:
       - VITE_BASE_URL_FOREST_SERVICE=http://localhost:8080/api
     ports:
       - 9000:9000
-    depends_on:
-      - java_forest_db
   java_forest_app:
     container_name: java_forest_app
     image: forest-java-app:1.0.0
@@ -34,4 +37,5 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
     depends_on:
-      - java_forest_react
+      java_forest_db:
+        condition: service_healthy
