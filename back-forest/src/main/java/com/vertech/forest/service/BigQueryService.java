@@ -1,5 +1,6 @@
 package com.vertech.forest.service;
 
+import com.vertech.forest.bigqueryConfig.BigQueryConfig;
 import com.vertech.forest.bigqueryConfig.BigQueryRequest;
 import com.vertech.forest.bigqueryConfig.QueryBuilder;
 import com.vertech.forest.web.controller.dto.queries.TreeCounterResult;
@@ -11,9 +12,27 @@ import java.util.List;
 
 @Service
 public class BigQueryService {
+    private final BigQueryConfig bigConf;
+
+    public BigQueryService(BigQueryConfig bigQueryConfig, BigQueryConfig bigConf) {
+        this.bigConf = bigConf;
+    }
+
     public List<TreeCounterResult> executeQuery(UserQueryInfo userQueryInfo) throws IOException, InterruptedException {
-        String query = QueryBuilder.buildQuery(userQueryInfo);
-        System.out.println(query);
-        return BigQueryRequest.executeRequest(query);
+        String query = QueryBuilder.buildQuery(
+                userQueryInfo,
+                bigConf.getYearLabel(),
+                bigConf.getQuantityLabel(),
+                bigConf.getDatabase(),
+                bigConf.getTable(),
+                bigConf.getStateCode(),
+                bigConf.getHeight(),
+                bigConf.getSpecieCode());
+        return BigQueryRequest.executeRequest(
+                query,
+                bigConf.getKeyPath(),
+                bigConf.getProjectId(),
+                bigConf.getYearLabel(),
+                bigConf.getQuantityLabel());
     }
 }
