@@ -1,0 +1,21 @@
+INSERT INTO public.states (state_code, state_name) VALUES(13,'Georgia') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(26,'Michigan') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(27,'Minnesota') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(37,'North Carolina') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(55,'Wisconsin') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(45,'South Carolina') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(51,'Virginia') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(1,'Alabama') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(23,'Maine') ON CONFLICT (state_code) DO NOTHING;
+INSERT INTO public.states (state_code, state_name) VALUES(12,'Florida') ON CONFLICT (state_code) DO NOTHING;
+
+INSERT INTO public.species (specie_code, specie_name) VALUES(131,'Loblolly pine') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(316,'Red maple') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(611,'Sweet gum') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(746,'Quaking aspen') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(318,'Sugar maple') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(12,'Balsam fir') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(202,'Douglas fir') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(802,'White oak') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(111,'Slash pine') ON CONFLICT (specie_code) DO NOTHING;
+INSERT INTO public.species (specie_code, specie_name) VALUES(621,'Yellow poplar') ON CONFLICT (specie_code) DO NOTHING;
