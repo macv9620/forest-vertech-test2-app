@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { Checkbox, Select } from '@material-tailwind/react'
 import { useAppContext } from '../../Context/AppContextProvider'
+import { getAllStates } from '../../Service/States/getAllStates'
 
 const MultiCheckState = () => {
-  const { setUserQuery, statesInfo, selectedQueryFromSavedQueries } = useAppContext()
+  const { setUserQuery, statesInfo, setStatesInfo, selectedQueryFromSavedQueries, setShowLoadingSpinner, setUserErrorLog } = useAppContext()
   const [selectedValues, setSelectedValues] = useState([])
+
+  useEffect(() => {
+    setShowLoadingSpinner(true)
+    getAllStates()
+      .then((response) => {
+        setStatesInfo(response.data.data)
+        setShowLoadingSpinner(false)
+      })
+      .catch((error) => {
+        console.log(error)
+        setUserErrorLog('Error getting states info')
+        setShowLoadingSpinner(false)
+      })
+  }, [])
 
   useEffect(() => {
     if (selectedQueryFromSavedQueries.filters.stateCode) {
@@ -36,7 +51,7 @@ const MultiCheckState = () => {
   return (
     <div className='w-20'>
       <Select variant='outlined' label='Filter by state' className='bg-white rounded'>
-        {statesInfo?.map((state, index) => (
+        {statesInfo.map((state, index) => (
           <Checkbox
             label={state.stateName}
             value={state.stateCode}

@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { Checkbox, Select } from '@material-tailwind/react'
 import { useAppContext } from '../../Context/AppContextProvider'
+import { getAllSpecies } from '../../Service/Species/getAllSpecies'
 
 const MultiCheckSpecie = () => {
-  const { setUserQuery, speciesInfo, selectedQueryFromSavedQueries } = useAppContext()
+  const { setUserQuery, speciesInfo, setSpeciesInfo, selectedQueryFromSavedQueries, setShowLoadingSpinner, setUserErrorLog } = useAppContext()
   const [selectedValues, setSelectedValues] = useState([])
+
+  useEffect(() => {
+    setShowLoadingSpinner(true)
+    getAllSpecies()
+      .then((response) => {
+        setSpeciesInfo(response.data.data)
+        setShowLoadingSpinner(false)
+      })
+      .catch((error) => {
+        console.log(error)
+        setUserErrorLog('Error getting species info')
+        setShowLoadingSpinner(false)
+      })
+  }, [])
 
   useEffect(() => {
     if (selectedQueryFromSavedQueries.filters.specieCode) {
@@ -34,7 +49,7 @@ const MultiCheckSpecie = () => {
   return (
     <div className='w-40'>
       <Select variant='outlined' label='Filter by specie' className='bg-white rounded'>
-        {speciesInfo?.map((specie, index) => (
+        {speciesInfo.map((specie, index) => (
           <Checkbox
             label={specie.specieName}
             value={specie.specieCode}

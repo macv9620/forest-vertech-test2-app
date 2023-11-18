@@ -39,39 +39,15 @@ const ContextAppProvider = ({ children }) => {
 
   const [statesInfo, setStatesInfo] = useState([
     {
-      stateCode: 13,
-      stateName: 'Georgia'
-    },
-    {
-      stateCode: 26,
-      stateName: 'Michigan'
-    },
-    {
-      stateCode: 27,
-      stateName: 'Minnesota'
-    },
-    {
-      stateCode: 37,
-      stateName: 'North Carolina'
+      stateCode: 0,
+      stateName: 'Default'
     }
   ])
 
   const [speciesInfo, setSpeciesInfo] = useState([
     {
-      specieCode: 131,
-      specieName: 'Loblolly Pine'
-    },
-    {
-      specieCode: 316,
-      specieName: 'Red Maple'
-    },
-    {
-      specieCode: 611,
-      specieName: 'Sweetgum'
-    },
-    {
-      specieCode: 746,
-      specieName: 'Quaking Aspen'
+      specieCode: 0,
+      specieName: 'Default'
     }
   ])
 
@@ -142,7 +118,9 @@ const ContextAppProvider = ({ children }) => {
     savedQueriesResult,
     setSavedQueriesResult,
     selectedQueryFromSavedQueries,
-    setSelectedQueryFromSavedQueries
+    setSelectedQueryFromSavedQueries,
+    setSpeciesInfo,
+    setStatesInfo
   }
 
   return (
