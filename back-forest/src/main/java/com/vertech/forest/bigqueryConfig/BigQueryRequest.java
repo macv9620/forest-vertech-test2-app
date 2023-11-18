@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BigQueryRequest {
+    // Method to execute a BigQuery request and retrieve results
     public static List<TreeCounterResult> executeRequest(
             String query,
             String jsonKeyPath,
@@ -20,6 +21,7 @@ public class BigQueryRequest {
 
         List<TreeCounterResult> dataList = new ArrayList<>();
 
+        // Variable to hold Google credentials
         GoogleCredentials credentials;
 
         // Load the credentials file as an InputStream
@@ -27,7 +29,7 @@ public class BigQueryRequest {
             credentials = ServiceAccountCredentials.fromStream(credentialsStream);
         }
 
-        // Instantiate a client.
+        // Instantiate a BigQuery client with the provided credentials and project ID
         BigQuery bigquery =
                 BigQueryOptions.newBuilder()
                         .setCredentials(credentials)
@@ -35,26 +37,31 @@ public class BigQueryRequest {
                         .build()
                         .getService();
 
+        // Configure the BigQuery query job
         QueryJobConfiguration queryConfig =
                 QueryJobConfiguration.newBuilder(query).build();
 
+        // Create and execute the query job
         Job queryJob = bigquery.create(JobInfo.newBuilder(queryConfig).build());
         queryJob = queryJob.waitFor();
         TableResult result = queryJob.getQueryResults();
 
-        for(FieldValueList row : result.iterateAll()){
+        // Iterate over the query results
+        for (FieldValueList row : result.iterateAll()) {
             TreeCounterResult treeCounterResult = new TreeCounterResult();
 
-            if (row.get(0).getValue() != null && row.get(1).getValue() != null){
+            // Check if the required fields are not null
+            if (row.get(0).getValue() != null && row.get(1).getValue() != null) {
 
+                // Extract values from the result row
                 int year = row.get(yearLabel).getNumericValue().intValue();
                 int quantity = row.get(quantityLabel).getNumericValue().intValue();
 
+                // Set values in the TreeCounterResult object
                 treeCounterResult.setInventoryYear(year);
                 treeCounterResult.setTreeQuantity(quantity);
 
                 dataList.add(treeCounterResult);
-                System.out.println("Year: " + year + " - Quantity: " + quantity);
             }
         }
 

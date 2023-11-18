@@ -12,12 +12,14 @@ import java.util.List;
 
 @Service
 public class BigQueryService {
+    // BigQuery configuration object
     private final BigQueryConfig bigConf;
 
     public BigQueryService(BigQueryConfig bigQueryConfig, BigQueryConfig bigConf) {
         this.bigConf = bigConf;
     }
 
+    // Method to execute a BigQuery based on user input
     public List<TreeCounterResult> executeQuery(UserQueryInfo userQueryInfo) throws IOException, InterruptedException {
         String query = QueryBuilder.buildQuery(
                 userQueryInfo,
@@ -28,6 +30,7 @@ public class BigQueryService {
                 bigConf.getStateCode(),
                 bigConf.getHeight(),
                 bigConf.getSpecieCode());
+
         return BigQueryRequest.executeRequest(
                 query,
                 bigConf.getKeyPath(),

@@ -8,12 +8,14 @@ import java.util.List;
 
 @Service
 public class SpecieInfoService {
+    // Repository for SpecieInfoEntity
     private final SpecieInfoRepository specieInfoRepository;
 
     public SpecieInfoService(SpecieInfoRepository specieInfoRepository) {
         this.specieInfoRepository = specieInfoRepository;
     }
 
+    // Method to retrieve all SpecieInfoEntities
     public List<SpecieInfoEntity> getAllSpecies(){
         return specieInfoRepository.findAll();
     }

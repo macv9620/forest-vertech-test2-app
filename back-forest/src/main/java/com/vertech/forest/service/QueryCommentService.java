@@ -11,6 +11,7 @@ import java.util.List;
 
 @Service
 public class QueryCommentService {
+    // Repositories for QueryCommentEntity, User, and Query entities
     private final QueryCommentRepository queryCommentRepository;
     private final UserRepository userRepository;
     private final QueryRepository queryRepository;
@@ -21,14 +22,19 @@ public class QueryCommentService {
         this.queryRepository = queryRepository;
     }
 
+    // Method to save a QueryCommentEntity
     public QueryCommentEntity save(QueryCommentEntity queryCommentEntity){
+        // Check if the commentNickName exists in the UserRepository
         if (!userRepository.existsById(queryCommentEntity.getCommentNickName())){
             throw new CheckDataCustomException("commentNickName doesn't exist");
         }
 
+        // Check if the queryId exists in the QueryRepository
         if (!queryRepository.existsById(queryCommentEntity.getQueryId())){
             throw new CheckDataCustomException("queryId doesn't exist");
         }
+
+        // Save the QueryCommentEntity in the QueryCommentRepository
         return queryCommentRepository.save(queryCommentEntity);
     }
 
