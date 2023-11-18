@@ -1,12 +1,13 @@
 import axios from 'axios'
-const BASE_URL = 'http://localhost:8080/api/userQuery/getAll'
+const BASE_URL = import.meta.env.VITE_BASE_URL_FOREST_SERVICE
+const ENDPOINT = '/userQuery/getAll'
 
 const getSavedQueries =
  () => {
    const config = {
      method: 'get',
      maxBodyLength: Infinity,
-     url: BASE_URL,
+     url: BASE_URL + ENDPOINT,
      headers: {
        'Content-Type': 'application/json'
      }
