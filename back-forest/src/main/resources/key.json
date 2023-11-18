@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "vertechfellowstestusforest",
+  "private_key_id": "d197b2bf648670483240a6c08eeaecac01792f5f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCit7ZtqD4qUxHb\nlI4On5uvIlREXS7hNptAN61gD+hk0mzUeUZNKrHv9KJVNrvKGjaaiPKZqP+jWvXI\nIwSsOnWbgsPlirnuCmWBLJ8yAFQGqYn1Vpti6Uowe4/jDxVoaJKid9rtzNTIkyng\nsazrMeZv9Gv94a46ulAk1EJydxXYmyGI8nlaDb9K2C7rKD1mTVQDLnfxM/6RiQlQ\nzjXOuLIF1Mf+cRoxMs+JM7lnmV1S9TXmGtH0uSFgGdv/x8MrDhLwk9Gi+Qi+nmS/\nsO/hCC+AfSJCJd1AbsUSSPRo1HYIAh3jnJGPpM+XeE+G4nUMaJd6YHjLK6nB5e5+\nd48dywv9AgMBAAECggEACCqCHES6QfODTOrKqk82R/bIFdo7VRAhgHqK1+xUdGLf\nFVa0wYCoB2vWjcI+cGkaXm0LB80kbzVMamvfeyk/57sLS8THifu5ll7/6kl77g2q\nH8bl63Pbxk0dLn7+Swwcd8zeDtsdvqcsDdu82tzZPLsehFJEJSxeg0qnvwjc7s7d\nwGsXCSfashhHLKVq06jo9J6yFk5j4O66ufVjc50w6eAdc+BpwO7GKf4VryInGVzV\nW0veQe88EzP/OkfJcWgf8wKUkSTkvnI3EneCvPLIpfDVm9Kpwqih1YXrszkLI8sh\nmDEuOXnaUm4oDeWP12jg4zcx1iK9RRH+LYaB22V/4QKBgQDWR6waz/MK2P6n00JG\n4EBHdCmL81f/iQIYBNY0FZSKP/PIimnIHTqh6IP+Y9dvVbIC814uhtcE8t55ZwPP\n7t8dtx8Ti7jBO8WOJmAsFsLQ+arOgZAc2cyCbe1bJq0OdO7nOIdh4QgxXoZYlAU5\n4z5QPc0YaUmG9N16NAHNCJVE+QKBgQDCZgaCUxVYhnpkYn8HLKOI0fwSSVKGXRYv\nltZZmVWeE8oqpwVnTNNut1EvmEeh53lQ+4PGjFs4zW5BfsRwTRt4rXeT2QZg79HK\n8sfWM4qYnPeRRM5K2D4gOg3S7FJXZcD9R1DGja51QlN0Vkoklz71lIXoLdg4JH/V\ni2YpTMG0JQKBgCeGtweHHmT83BSnEo2yZgkIM3W+YJghdMJrefvHk0vhOh3e8l5Y\nje05z8dIMYA3BYwnylK4ysb96e3pA7oCbSO1GMVpO55hYTK0f38Cf9M+irRnD+dS\ngbf5gRQUUU3eYgdC1S5H7VP2BMAoJcKk2WTB0ahUG50KZCRbnY1trOM5AoGBAKLp\ncYcCLZ9Ug3lg+ed/R0VABKkmfVxQ4mjbVaMc1x10pDX+Zo7dWUstoYHrcgyCua5e\nOV7I/SGrNzz4CZO7asxFQzLJ64iNMhmMQGCILRwcX3SEXwVmFxpWzIL4vUC063jW\nrSDYV125ScrzDYuAnKid4WJkGRFjtSW2ftUZmDNpAoGAbIJCBZ5cANUt8rhSg6Lh\nT11swS2huYw8ttOpYmtT+QzgPL+OXCuFq91zcunngjEj/2y0pXZLeue7lOdRCYRR\ni4WDoSuVueaNBNgy99ZDhfWj0zCzQ0SGbUx/VwYcOBOHtYi0IZ7oEtM0E7BBqFgF\nb9haJQpNJZ0FZu6QHWS5a7Q=\n-----END PRIVATE KEY-----\n",
+  "client_email": "forestapp@vertechfellowstestusforest.iam.gserviceaccount.com",
+  "client_id": "105844657264479360181",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/forestapp%40vertechfellowstestusforest.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

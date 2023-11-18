@@ -539,7 +539,5 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,visualstudiocode,java,gradle,maven,eclipse,intellij,intellij+iml,intellij+all
 
-**/application.properties
-**/key.json
 desktop.ini
 
