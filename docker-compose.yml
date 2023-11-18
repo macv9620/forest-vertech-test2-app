@@ -14,9 +14,9 @@ services:
         - ./data:/var/lib/postgresql/data
       healthcheck:
         test: ["CMD", "pg_isready", "-U", "postgres"]
-        interval: 2s
+        interval: 5s
         timeout: 5s
-        retries: 10
+        retries: 30
   java_forest_react:
     container_name: java_forest_react
     image: forest-react-app:1.0.0
