@@ -84,8 +84,8 @@ const ContextAppProvider = ({ children }) => {
       filtersList.push('States: all')
     } else {
       filtersList.push('States: ' + userQuery.filters.stateCode.map((stateCode) => {
-        const state = statesInfo.find((state) => state.stateCode === stateCode)
-        return state.stateName
+        const state = statesInfo?.find((state) => state?.stateCode === stateCode)
+        return state?.stateName
       }).join(', '))
     }
 
@@ -93,8 +93,8 @@ const ContextAppProvider = ({ children }) => {
       filtersList.push('Species: all')
     } else {
       filtersList.push('Species: ' + userQuery.filters.specieCode.map((specieCode) => {
-        const specie = speciesInfo.find((specie) => specie.specieCode === specieCode)
-        return specie.specieName
+        const specie = speciesInfo?.find((specie) => specie?.specieCode === specieCode)
+        return specie?.specieName
       }).join(', '))
     }
 
