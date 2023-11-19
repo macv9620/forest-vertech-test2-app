@@ -14,6 +14,7 @@ const DashBoard = () => {
 
   const paramsObject = useParams()
 
+  // gets the user logged info from the sessionStorage
   useEffect(() => {
     const loggedUserString = sessionStorage.getItem('loggedUser')
     if (loggedUserString) {
@@ -26,16 +27,12 @@ const DashBoard = () => {
     } else {
       navigate('/')
     }
-    console.log('paramsObject:', paramsObject)
+
+    // controls the path to the dashboard when the user selects a query from the saved queries and requests the query data
     if (paramsObject?.selectedQueryId !== 'general') {
       getQueryById(paramsObject.selectedQueryId)
         .then(response => {
-          console.log('response:', JSON.parse(response.data.data.queryJson))
-
           const queryObject = JSON.parse(response.data.data.queryJson)
-
-          console.log('queryObject:', queryObject.table)
-
           setSelectedQueryFromSavedQueries((prevSelectedQuery) => ({
             ...prevSelectedQuery,
             table: queryObject.table,

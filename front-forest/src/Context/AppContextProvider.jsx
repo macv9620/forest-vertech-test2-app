@@ -4,15 +4,32 @@ const AppContext = createContext()
 
 // eslint-disable-next-line react/prop-types
 const ContextAppProvider = ({ children }) => {
+  // this state is used to store the query result data when big queries are executed
   const [queryResultData, setQueryResultData] = useState(null)
+
+  // controls the loading spinner rendering
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
+
+  // show the error message when the user query is not valid
   const [userErrorLog, setUserErrorLog] = useState(null)
+
+  // get the years from the dashboard
   const [toYear, setToYear] = useState('')
   const [fromYear, setFromYear] = useState('')
+
+  // controls the render of save query modal
   const [showSaveForm, setShowSaveForm] = useState(false)
+
+  // controls the render of send comment modal
   const [showSendComment, setShowSendComment] = useState(false)
+
+  // this state is used to store the query summary and print it in the dashboard
   const [querySummary, setQuerySummary] = useState('')
+
+  // syncs the saved queries to get new comments recently added
   const [syncSavedQueries, setSyncSavedQueries] = useState(false)
+
+  // this state is used to store the saved queries result
   const [savedQueriesResult, setSavedQueriesResult] = useState(null)
 
   const [selectedQueryFromSavedQueries, setSelectedQueryFromSavedQueries] = useState({
@@ -37,6 +54,7 @@ const ContextAppProvider = ({ children }) => {
     }
   })
 
+  // contains the states info from database
   const [statesInfo, setStatesInfo] = useState([
     {
       stateCode: 0,
@@ -44,6 +62,7 @@ const ContextAppProvider = ({ children }) => {
     }
   ])
 
+  // contains the species info from database
   const [speciesInfo, setSpeciesInfo] = useState([
     {
       specieCode: 0,
@@ -51,6 +70,7 @@ const ContextAppProvider = ({ children }) => {
     }
   ])
 
+  // this function prints the filters selected by the user in dashboard
   const querySummaryBuilder = ({ userQuery, speciesInfo, statesInfo }) => {
     const filtersList = []
 
@@ -87,6 +107,7 @@ const ContextAppProvider = ({ children }) => {
     return filtersList.join(' - ')
   }
 
+  // this effect is used to update the query summary when the user changes the filters
   useEffect(() => {
     setQuerySummary(querySummaryBuilder({ userQuery, speciesInfo, statesInfo }))
   }, [userQuery, toYear, fromYear])

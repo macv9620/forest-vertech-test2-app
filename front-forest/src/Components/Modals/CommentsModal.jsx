@@ -11,6 +11,7 @@ const CommentsModal = (props) => {
   const [userLog, setUserLog] = useState(null)
   const [commentInput, setCommentInput] = useState('')
 
+  // this f
   const updatedSavedQueriesList = savedQueriesResult?.map(
     ({ user, nickName, queryName, queryDescription, createdAt, comments, queryId }) => {
       return {
@@ -26,13 +27,11 @@ const CommentsModal = (props) => {
     })
 
   const queryToShowInCommentsModal = updatedSavedQueriesList.filter(query => query.queryId === props.selectedQueryId)[0]
-  console.log(queryToShowInCommentsModal)
 
   const handleSendComment = () => {
     if (commentInput === '') {
       setUserLog('Please enter a comment.')
     } else {
-      console.log('Ejecutanto petición')
       setUserLog(null)
 
       const infoToPost = {
@@ -41,6 +40,7 @@ const CommentsModal = (props) => {
         queryId: queryToShowInCommentsModal.queryId
       }
 
+      //
       const excecutePost = () => {
         setShowLoadingSpinner(true)
         postComment(infoToPost)
@@ -171,7 +171,7 @@ const CommentsModal = (props) => {
       </Card>
 
       <div className='w-3/4 bg-white rounded-md flex flex-col justify-center'>
-        <h1 className='text-red-300 text-xs p-1 font-bold self-center'>{userLog}</h1>
+        <h1 className='text-pink-900 text-xs p-1 font-bold self-center'>{userLog}</h1>
         <div className='flex justify-center bg-white items-center gap-10 h-20 rounded-md'>
           <div className='w-[30rem] flex items-center justify-center'>
             <Input

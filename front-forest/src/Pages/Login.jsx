@@ -20,10 +20,7 @@ const Login = () => {
 
       postLogin(username)
         .then((res) => {
-          console.log(res)
-          console.log('User logged successfully')
           setShowLoadingSpinner(false)
-          console.log(res.data.data)
           sessionStorage.setItem('loggedUser', JSON.stringify(res.data.data))
           navigate('/dashBoard/general')
         })
@@ -73,13 +70,13 @@ const Login = () => {
 
             <button
               type='submit'
-              className='bg-black hover:bg-blue-900 text-white font-semibold rounded-md py-2 px-4 w-full'
+              className='bg-black hover:bg-teal-900 text-white font-semibold rounded-md py-2 px-4 w-full'
               onClick={handleLogin}
             >
               Login
             </button>
           </form>
-          <h1 className='text-red-300 text-xs p-1 font-bold self-center'>
+          <h1 className='text-pink-900 text-xs p-1 font-bold self-center'>
             {userLog}
           </h1>
           <div className='mt-6 text-blue-900 text-center'>

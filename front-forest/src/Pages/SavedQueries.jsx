@@ -22,26 +22,32 @@ import { useAuthContext } from '../Context/AuthContextProvider'
 import { LoggedUserModal } from '../Components/Modals/LoggedUserModal'
 
 const SavedQueries = () => {
+  // head of the table
   const TABLE_HEAD = ['User', 'Query Name / Description', 'Comments', 'Date', 'Edit']
+
+  // prints a log with messages for the user
   const [userLog, setUserLog] = useState(null)
+
   const {
     setShowLoadingSpinner, showSendComment, setShowSendComment,
     syncSavedQueries,
     savedQueriesResult, setSavedQueriesResult
   } = useAppContext()
 
+  // gets the query selected by the user to the dashboard
   const [selectedQueryId, setSelectedQueryId] = useState()
 
   const { userLogged, setUserLogged } = useAuthContext()
   const navigate = useNavigate()
 
+  // controls the search by nickname in search bar
   const [searchNickname, setSearchNickname] = useState('')
 
   const filteredQueries = savedQueriesResult?.filter(({ nickName }) =>
     nickName.toLowerCase().includes(searchNickname.toLowerCase())
   )
 
-  // Retrieve loggedUser from sessionStorage on component mount
+  // Retrieve loggedUser from sessionStorage
   useEffect(() => {
     const loggedUserString = sessionStorage.getItem('loggedUser')
     if (loggedUserString) {

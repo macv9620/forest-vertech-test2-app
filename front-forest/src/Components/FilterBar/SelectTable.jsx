@@ -6,8 +6,8 @@ const SelectTable = () => {
   const { setUserQuery, userQuery, selectedQueryFromSavedQueries } = useAppContext()
   const [selectedValue, setSelectedValue] = useState('')
 
+  //
   useEffect(() => {
-    console.log(selectedQueryFromSavedQueries.table)
     if (selectedQueryFromSavedQueries.table) {
       setSelectedValue(selectedQueryFromSavedQueries.table)
       setUserQuery({

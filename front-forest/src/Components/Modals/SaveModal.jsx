@@ -91,7 +91,7 @@ const SaveModal = (props) => {
                 />
               </div>
             </div>
-            <p className='text-red-300 text-xs p-1 font-bold'>{checkUserLog}</p>
+            <p className='text-pink-900 text-xs p-1 font-bold'>{checkUserLog}</p>
             <div className='flex gap-4'>
               {showSaveButton &&
                 <Button className='mt-6 bg-green-500' fullWidth onClick={handleSaveClick}>

@@ -24,7 +24,6 @@ const SignUp = () => {
       setShowLoadingSpinner(true)
       postUser(userInfo)
         .then(res => {
-          console.log(res)
           navigate('/')
           setShowLoadingSpinner(false)
         })
@@ -89,13 +88,13 @@ const SignUp = () => {
 
             <button
               type='submit'
-              className='bg-black hover:bg-blue-900 text-white font-semibold rounded-md py-2 px-4 w-full'
+              className='bg-black hover:bg-teal-900 text-white font-semibold rounded-md py-2 px-4 w-full'
             >
               Sign up
             </button>
           </form>
 
-          <h1 className='text-red-300 text-xs p-1 font-bold self-center'>
+          <h1 className='text-pink-900 text-xs p-1 font-bold self-center'>
             {userLog}
           </h1>
 

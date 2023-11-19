@@ -7,6 +7,7 @@ const MultiCheckSpecie = () => {
   const { setUserQuery, speciesInfo, setSpeciesInfo, selectedQueryFromSavedQueries, setShowLoadingSpinner, setUserErrorLog } = useAppContext()
   const [selectedValues, setSelectedValues] = useState([])
 
+  // Get all species
   useEffect(() => {
     setShowLoadingSpinner(true)
     getAllSpecies()
@@ -21,6 +22,7 @@ const MultiCheckSpecie = () => {
       })
   }, [])
 
+  // This effect is used to set the selectedValues when a query is selected from the saved queries
   useEffect(() => {
     if (selectedQueryFromSavedQueries.filters.specieCode) {
       setSelectedValues(selectedQueryFromSavedQueries.filters.specieCode)
@@ -38,6 +40,7 @@ const MultiCheckSpecie = () => {
     }))
   }, [selectedValues, setUserQuery])
 
+  // this function is used to handle the checkbox change
   const handleCheckboxChange = (value) => {
     if (selectedValues.includes(value)) {
       setSelectedValues(selectedValues.filter((v) => v !== value))

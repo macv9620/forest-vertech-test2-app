@@ -7,6 +7,10 @@ import { getByQueryData } from '../../Service/BigQuery/getByQueryData'
 import { SaveModal } from '../Modals/SaveModal'
 import { Link } from 'react-router-dom'
 
+/**
+ * SimpleRegistrationForm component provides a form for user input to execute queries and save them.
+ * It includes input fields for the 'From year' and 'To year', buttons to run the query, save the query, and navigate to saved queries.
+ */
 const SimpleRegistrationForm = () => {
   // State to store input values
   const {
@@ -14,6 +18,7 @@ const SimpleRegistrationForm = () => {
     fromYear, setFromYear, toYear, setToYear, showSaveForm, setShowSaveForm
   } = useAppContext()
 
+  // Function to check if the data is ok to run the query
   const isDataOk = () => {
     if (userQuery.table === null) {
       setUserErrorLog('Please select a Table')
@@ -37,6 +42,7 @@ const SimpleRegistrationForm = () => {
     return true
   }
 
+  // Function to check if the data is ok to save the query
   const checkDataAndShowModal = () => {
     setUserErrorLog(null)
     if (isDataOk()) {
@@ -51,15 +57,9 @@ const SimpleRegistrationForm = () => {
     }
   }
 
+  // Function to execute the query
   const executeQuery = () => {
     setShowLoadingSpinner(true)
-    console.log({
-      ...userQuery,
-      filters: {
-        ...userQuery.filters,
-        inventoryYear: [fromYear, toYear]
-      }
-    })
     getByQueryData({
       ...userQuery,
       filters: {
@@ -67,6 +67,7 @@ const SimpleRegistrationForm = () => {
         inventoryYear: [fromYear, toYear]
       }
     }).then((res) => {
+      // condition to check if the query returned no results
       if (res.data.data.length === 0) {
         setQueryResultData(null)
         setUserErrorLog('Your query returned no results, update your filters and run again')
@@ -83,6 +84,7 @@ const SimpleRegistrationForm = () => {
     })
   }
 
+  // Function to handle the submit event
   const handleSubmit = (e) => {
     setUserErrorLog(null)
     e.preventDefault()

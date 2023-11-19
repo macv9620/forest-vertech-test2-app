@@ -4,21 +4,32 @@ import * as d3 from 'd3'
 import './BarChart.css'
 import { useAppContext } from '../../Context/AppContextProvider'
 
+/**
+ * BarChart component renders a bar chart using D3 based on the queryResultData.
+ * The chart includes axes, bars, labels, and interactive features.
+ */
+
 const BarChart = () => {
+  // Define margins and dimensions
   const margin = 80
   const width = 1100 - 2 * margin
   const height = 500 - 2 * margin
+
+  // Access queryResultData from the AppContext
   const { queryResultData } = useAppContext()
 
+  // useEffect hook to handle D3 chart rendering and cleanup
   useEffect(() => {
     if (queryResultData != null) {
+      // Extract treeQuantity values for scaling
       const yValues = queryResultData.map((data) => data.treeQuantity)
       const maxY = Math.max(...yValues)
 
-      const svg = d3.select('#chart-svg') // Use a specific id for the SVG container
+      const svg = d3.select('#chart-svg')
 
       const chart = svg.append('g').attr('transform', `translate(${margin}, ${margin})`)
 
+      // Define x and y scales using D3 scales
       const xScale = d3
         .scaleBand()
         .range([0, width])
@@ -33,6 +44,7 @@ const BarChart = () => {
 
       const barGroups = chart.selectAll().data(queryResultData).enter().append('g')
 
+      // Append bars to the chart
       barGroups
         .append('rect')
         .attr('class', 'bar')
@@ -41,6 +53,7 @@ const BarChart = () => {
         .attr('height', (g) => height - yScale(g.treeQuantity))
         .attr('width', xScale.bandwidth())
 
+      // Append labels to the bars
       barGroups
         .append('text')
         .attr('class', 'bar-label')
@@ -48,7 +61,6 @@ const BarChart = () => {
         .attr('y', (g) => yScale(g.treeQuantity) - 5) // Adjust the y-position as needed
         .attr('text-anchor', 'middle')
         .text((g) => g.treeQuantity)
-        // ... (rest of your code)
 
       barGroups
         .append('rect')

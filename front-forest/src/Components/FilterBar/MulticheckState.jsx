@@ -7,6 +7,7 @@ const MultiCheckState = () => {
   const { setUserQuery, statesInfo, setStatesInfo, selectedQueryFromSavedQueries, setShowLoadingSpinner, setUserErrorLog } = useAppContext()
   const [selectedValues, setSelectedValues] = useState([])
 
+  // this effect is used to get all states
   useEffect(() => {
     setShowLoadingSpinner(true)
     getAllStates()
@@ -21,6 +22,7 @@ const MultiCheckState = () => {
       })
   }, [])
 
+  // This effect is used to set the selectedValues when a query is selected from the saved queries
   useEffect(() => {
     if (selectedQueryFromSavedQueries.filters.stateCode) {
       setSelectedValues(selectedQueryFromSavedQueries.filters.stateCode)
@@ -28,7 +30,6 @@ const MultiCheckState = () => {
   }, [selectedQueryFromSavedQueries])
 
   useEffect(() => {
-    // Update stateCode in userQuery when selectedValues change
     setUserQuery((prevUserQuery) => ({
       ...prevUserQuery,
       filters: {

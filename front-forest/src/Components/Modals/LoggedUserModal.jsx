@@ -1,5 +1,6 @@
 import { Avatar, Chip, Typography } from '@material-tailwind/react'
 
+// this modal is used to show the logged user name in the dashboard
 const LoggedUserModal = (props) => {
   return (
     <div className='fixed bottom-4 right-4 z-20'>
