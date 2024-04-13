@@ -2,6 +2,7 @@ package com.vertech.forest.persistence.entity;
 
 import autovalue.shaded.org.jetbrains.annotations.NotNull;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
@@ -18,12 +19,18 @@ public class QueryEntity {
     @Column(nullable = false)
     private String nickName;
 
+//    Validación
+    @NotNull
+    @Size(min = 3, max = 10, message = "Invalid size (min= 3 - max = 10)")
     @Column(name = "query_name")
     private String queryName;
 
     @Column(name = "query_json")
     private String queryJson;
 
+    //    Validación
+    @NotNull
+    @Size(min = 14, max = 50, message = "Invalid size (min= 14 - max = 50)")
     @Column(name = "query_description")
     private String queryDescription;
 
